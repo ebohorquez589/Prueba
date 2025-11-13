@@ -1,4 +1,4 @@
-#1. 📑 Resumen Ejecutivo Propuesto
+## 1. 📑 Resumen Ejecutivo Propuesto
 
 El sistema de **Bibliocastia** es una solución automatizada diseñada para la gestión y sincronización de datos en un entorno **Raspberry Pi**.
 
