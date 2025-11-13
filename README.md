@@ -1,29 +1,39 @@
-# 📚 BIBLIOCASTIA
+# 📑 Resumen Ejecutivo Propuesto
 
-## 1. RESUMEN EJECUTIVO
-
-**BIBLIOCASTIA** es un sistema automatizado de gestión y sincronización de datos bibliotecarios que opera en un entorno **Raspberry Pi**.  
-El sistema alterna entre operaciones de red **WAN (Internet)** y **LAN (red local)** mediante un **orquestador central**, ejecutando tareas programadas **tres veces al día**.
+El sistema de **Bibliocastia** es una solución automatizada diseñada para la gestión y sincronización de datos en un entorno **Raspberry Pi**.
 
 ---
 
-## 1.1 COMPONENTES PRINCIPALES
+## ⚙️ Descripción General
 
-### 🕒 **Timer.py**
-**Orquestador central del sistema**
-
----
-
-### 🌐 **GlideExportBot.py**
-**Bot de exportación de datos desde Glide (WAN)**
+Este sistema opera de manera continua y utiliza un **Orquestador (Timer)** basado en **APScheduler** para gestionar la ejecución de tareas críticas.  
+El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (Red Local)** para ejecutar dos procesos principales:
 
 ---
 
-### 🖧 **ethernet_tasks.py**
-**Procesador de archivos en red local (LAN)**
+## 🌐 Tarea WAN
+
+**Script:** `GlideExportBot.py`
 
 ---
 
-### 🧩 **Scripts auxiliares**
-- **INDICADORES.py**
-- **configwha.py**
+## 🖧 Tarea LAN
+
+**Script:** `ethernet_tasks.py`
+
+---
+
+## 🕒 Programación de Ejecución
+
+Las tareas se ejecutan automáticamente en ciclos **tres veces al día**, según la programación definida en la variable `SCHEDULE_HOURS`.
+
+## 🔁 Alta Disponibilidad y Resiliencia
+
+Además de la programación, el sistema incorpora lógica de alta disponibilidad y resiliencia, incluyendo:
+
+- Mecanismos de reintentos de conexión  
+- **Fallback** a Wi-Fi  
+- Un **Modo de Emergencia** que se activa automáticamente ante cualquier fallo en las tareas críticas  
+
+Esto asegura la **continuidad de la operación** o deja el sistema en un **estado conocido y seguro**.
+
