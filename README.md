@@ -15,11 +15,11 @@ El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (
 
 ---
 
-## 🕒 Programación de Ejecución
+## 1.1🕒 Programación de Ejecución
 
 Las tareas se ejecutan automáticamente en ciclos **tres veces al día**, según la programación definida en la variable `SCHEDULE_HOURS`.
 
-## 🔁 Alta Disponibilidad y Resiliencia
+## 1.2🔁 Alta Disponibilidad y Resiliencia
 
 Además de la programación, el sistema incorpora lógica de alta disponibilidad y resiliencia, incluyendo:
 
