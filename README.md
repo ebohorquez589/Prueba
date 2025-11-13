@@ -1,4 +1,4 @@
-# 📑 Resumen Ejecutivo Propuesto
+#1. 📑 Resumen Ejecutivo Propuesto
 
 El sistema de **Bibliocastia** es una solución automatizada diseñada para la gestión y sincronización de datos en un entorno **Raspberry Pi**.
 
@@ -28,6 +28,12 @@ Además de la programación, el sistema incorpora lógica de alta disponibilidad
 - Un **Modo de Emergencia** que se activa automáticamente ante cualquier fallo en las tareas críticas  
 
 Esto asegura la **continuidad de la operación** o deja el sistema en un **estado conocido y seguro**.
+
+## 🧩 Nota
+
+> **APScheduler (Advanced Python Scheduler)** es una biblioteca de Python que permite programar la ejecución de funciones (tareas o "jobs") para que se ejecuten más tarde, ya sea una sola vez o de forma periódica.  
+>  
+> Es ideal para automatizar tareas dentro de aplicaciones Python existentes, como el código de tu Orquestador, sin depender de herramientas externas del sistema operativo como **cron**.
 
 ---
 
