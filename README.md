@@ -1,9 +1,29 @@
-📚 BIBLIOCASTIA
+# 📚 BIBLIOCASTIA
 
-BIBLIOCASTIA es un sistema automatizado de gestión y sincronización de datos bibliotecarios diseñado para operar en entornos Raspberry Pi.
-El sistema alterna dinámicamente entre operaciones de red WAN (Internet) y LAN (red local) mediante un orquestador central, ejecutando tareas programadas tres veces al día.
+## 1. RESUMEN EJECUTIVO
 
-⚙️ Resumen Ejecutivo
+**BIBLIOCASTIA** es un sistema automatizado de gestión y sincronización de datos bibliotecarios que opera en un entorno **Raspberry Pi**.  
+El sistema alterna entre operaciones de red **WAN (Internet)** y **LAN (red local)** mediante un **orquestador central**, ejecutando tareas programadas **tres veces al día**.
 
-El objetivo de BIBLIOCASTIA es mantener actualizada y sincronizada la información bibliotecaria en diferentes entornos de red, optimizando el uso de recursos locales y la conectividad disponible.
-El sistema permite la automatización completa del flujo de datos entre fuentes externas (como Glide) y el entorno local de la biblioteca.
+---
+
+## 1.1 COMPONENTES PRINCIPALES
+
+### 🕒 **Timer.py**
+**Orquestador central del sistema**
+
+---
+
+### 🌐 **GlideExportBot.py**
+**Bot de exportación de datos desde Glide (WAN)**
+
+---
+
+### 🖧 **ethernet_tasks.py**
+**Procesador de archivos en red local (LAN)**
+
+---
+
+### 🧩 **Scripts auxiliares**
+- **INDICADORES.py**
+- **configwha.py**
