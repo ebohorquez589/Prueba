@@ -2,22 +2,14 @@
 
 El sistema de **Bibliocastia** es una solución automatizada diseñada para la gestión y sincronización de datos en un entorno **Raspberry Pi**.
 
----
-
-## ⚙️ Descripción General
-
 Este sistema opera de manera continua y utiliza un **Orquestador (Timer)** basado en **APScheduler** para gestionar la ejecución de tareas críticas.  
 El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (Red Local)** para ejecutar dos procesos principales:
 
----
-
-## 🌐 Tarea WAN
+**🌐 Tarea WAN**
 
 **Script:** `GlideExportBot.py`
 
----
-
-## 🖧 Tarea LAN
+**🖧 Tarea LAN**
 
 **Script:** `ethernet_tasks.py`
 
@@ -36,4 +28,6 @@ Además de la programación, el sistema incorpora lógica de alta disponibilidad
 - Un **Modo de Emergencia** que se activa automáticamente ante cualquier fallo en las tareas críticas  
 
 Esto asegura la **continuidad de la operación** o deja el sistema en un **estado conocido y seguro**.
+
+---
 
