@@ -40,9 +40,9 @@ Esto asegura la **continuidad de la operación** o deja el sistema en un **estad
 ## 1.3 🏗️ Diagrama de Arquitectura General
 ```mermaid
 graph TD
-    A[TIMER.PY <br/>Orquestador] --> B[APScheduler<br/>3 ejecuciones diarias<br/>Horarios: 05:00, 13:00, 21:00]
-    B --> C[FASE WAN<br/>Internet]
-    B --> D[FASE LAN<br/>Red Local]
+    B[APScheduler<br/>3 ejecuciones diarias<br/>Horarios: 05:00, 13:00, 21:00] --> A[TIMER.PY <br/>Orquestador]
+    A --> C[FASE WAN<br/>Internet]
+    A --> D[FASE LAN<br/>Red Local]
     
     C --> E[Wired Connection 2<br/>D-Link]
     D --> F[Wired Connection 1<br/>eth0]
