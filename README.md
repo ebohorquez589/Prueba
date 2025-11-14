@@ -37,3 +37,14 @@ Esto asegura la **continuidad de la operación** o deja el sistema en un **estad
 
 ---
 
+
+```mermaid
+flowchart TD
+    A[Desarrollador crea una rama] --> B[Hace commits]
+    B --> C[Push a GitHub]
+    C --> D[Crear Pull Request]
+    D --> E[Revisión del equipo]
+    E --> F{Aprobado?}
+    F -->|Sí| G[Merge a main]
+    F -->|No| B
+
