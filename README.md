@@ -38,7 +38,7 @@ Esto asegura la **continuidad de la operación** o deja el sistema en un **estad
 ---
 
 ## 1.3 🏗️ Diagrama de Arquitectura General
-
+```mermaid
 graph TD
     A[TIMER.PY (Orquestador)] --> B[APScheduler<br/>3 ejecuciones diarias<br/>Horarios: 05:00, 13:00, 21:00]
     B --> C{FASE WAN<br/>(Internet)}
