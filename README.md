@@ -15,11 +15,11 @@ El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (
 
 ---
 
-## 1.1🕒 Programación de Ejecución
+## 1.1 🕒 Programación de Ejecución
 
 Las tareas se ejecutan automáticamente en ciclos **tres veces al día**, según la programación definida en la variable `SCHEDULE_HOURS`.
 
-## 1.2🔁 Alta Disponibilidad y Resiliencia
+## 1.2 🔁 Alta Disponibilidad y Resiliencia
 
 Además de la programación, el sistema incorpora lógica de alta disponibilidad y resiliencia, incluyendo:
 
@@ -37,14 +37,22 @@ Esto asegura la **continuidad de la operación** o deja el sistema en un **estad
 
 ---
 
+## 1.3 🏗️ Diagrama de Arquitectura General
+graph TD
+    A[TIMER.PY (Orquestador)] --> B[APScheduler<br/>3 ejecuciones diarias<br/>Horarios: 05:00, 13:00, 21:00]
+    B --> C{FASE WAN<br/>(Internet)}
+    B --> D{FASE LAN<br/>(Red Local)}
+    
+    C --> E[Wired Connection 2<br/>(D-Link)]
+    D --> F[Wired Connection 1<br/>(eth0)]
+    
+    E --> G[INTERNET]
+    F --> H[RED LOCAL (CIFS)]
+    
+    G --> I[Glide Export Bot]
+    H --> J[Archivos CSV]
+    
+    I --> K[Notificaciones<br/>WhatsApp/Email]
+    J --> K
 
-```mermaid
-flowchart TD
-    A[Desarrollador crea una rama] --> B[Hace commits]
-    B --> C[Push a GitHub]
-    C --> D[Crear Pull Request]
-    D --> E[Revisión del equipo]
-    E --> F{Aprobado?}
-    F -->|Sí| G[Merge a main]
-    F -->|No| B
-
+    
