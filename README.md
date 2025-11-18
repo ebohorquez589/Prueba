@@ -274,50 +274,108 @@ pythonsections = [
 ## 3.2 Flujo Completo del Proceso
 
 ```mermaid
-flowchart TD
-
-    A["INICIO main()"] --> B["PASO 1: PREPARACION DE RED"]
-
-    %% PASO 1
-    B --> B1["Asegurar PAN/Bluetooth ARRIBA\nnm_ensure_pan_up()"]
-    B --> B2["Conectar Internet con fallback"]
-    B2 --> B2a["Intentar: Wired connection 2 (D-Link)"]
-    B2 --> B2b["Si falla -> Probar Wi-Fi\nensure_internet_with_wifi_fallback()"]
-    B --> B3["Verificar DNS y conectividad IP"]
-    B3 --> B3a["internet_by_ip() -> 8.8.8.8:53"]
-    B3 --> B3b["dns_resolves(oauth2.googleapis.com)"]
-    B3 --> B3c["Si falla DNS -> Forzar publicos 1.1.1.1 / 8.8.8.8\nReintentos hasta 5"]
-    B --> B4["Red lista / ABORTAR"]
-
-    %% PASO 2
-    A --> C["PASO 2: AUTENTICACION GMAIL"]
-    C --> C1["Cargar token.pickle"]
-    C --> C2["Si no existe o expiro -> OAuth con credentials.json\nGuardar token"]
-    C --> C3["Retorna gmail_service"]
-
-    %% PASO 3
-    A --> D["PASO 3: INICIAR SELENIUM"]
-    D --> D1["Configurar Chrome Options"]
-    D --> D2["Iniciar WebDriver"]
-    D --> D3["WebDriverWait(30s)"]
-
-    %% PASO 4
-    A --> E["PASO 4: AUTENTICACION EN GLIDE"]
-    E --> E1["Navegar a go.glideapps.com"]
-    E --> E2["Manejar advertencias"]
-    E --> E3["Sign up with Email"]
-    E --> E4["Ingresar correo"]
-    E --> E5["Esperar correo Glide (10 intentos x 10s)"]
-    E --> E6["Obtener enlace magico"]
-    E --> E7["Abrir enlace en nueva pestaña"]
-    E --> E8["Si aparece modal 'Open app here'"]
-
-    %% PASO 5
-    A --> F["PASO 5: EXPORTACION POR PLANTA\n(Loop 18 plantas)"]
-    F --> F1["Para cada planta"]
-    F1 --> F1a["Navegar a planta especifica\n//div[text()='{plant}']"]
-    F1 --> F1b["Ir a pesta]()
-
+graph TD
+    A[INICIO main] --> B[PASO 1: PREPARACIÓN DE RED]
+    
+    B --> C[Asegurar PAN/Bluetooth ARRIBA]
+    C --> D[nm_ensure_pan_up]
+    
+    D --> E[Conectar Internet con fallback]
+    E --> F{Intentar Wired connection 2 D-Link}
+    F -->|Éxito| G[Verificar DNS y conectividad IP]
+    F -->|Falla| H[Probar perfiles Wi-Fi]
+    H --> G
+    
+    G --> I{internet_by_ip y DNS resuelven?}
+    I -->|Sí| J[✅ Red lista]
+    I -->|No| K[Forzar DNS públicos 1.1.1.1, 8.8.8.8]
+    K --> L[Reintentos con backoff hasta 5 intentos]
+    L --> I
+    
+    J --> M[PASO 2: AUTENTICACIÓN GMAIL]
+    M --> N{Cargar token.pickle}
+    N -->|Existe y válido| O[Retorna gmail_service]
+    N -->|No existe o expirado| P[OAuth flow con credentials.json]
+    P --> Q[Guardar nuevo token]
+    Q --> O
+    
+    O --> R[PASO 3: INICIAR SELENIUM]
+    R --> S[Configurar Chrome Options]
+    S --> T[Iniciar WebDriver]
+    T --> U[WebDriverWait 30 segundos]
+    
+    U --> V[PASO 4: AUTENTICACIÓN EN GLIDE]
+    V --> W[Navegar a https://go.glideapps.com]
+    W --> X[Manejar advertencias de seguridad]
+    X --> Y[Click Sign up with Email]
+    Y --> Z[Ingresar SENDER_EMAIL]
+    Z --> AA[Esperar correo de Glide Gmail API]
+    AA --> BB[extract_link_from_email 10 intentos × 10s]
+    BB --> CC[Obtener enlace mágico]
+    CC --> DD[Abrir enlace en nueva pestaña]
+    DD --> EE{Manejar modal Open app here?}
+    EE -->|Aparece| FF[click_open_app_here_if_present]
+    EE -->|No aparece| GG[Continuar]
+    FF --> GG
+    
+    GG --> HH[PASO 5: EXPORTACIÓN POR PLANTA Loop 18 plantas]
+    HH --> II[Para cada PLANTA]
+    II --> JJ[Navegar a planta específica]
+    JJ --> KK[Ir a pestaña Data]
+    KK --> LL[Para cada SECCIÓN 5 secciones]
+    
+    LL --> MM[export_section driver, wait, section, plant]
+    MM --> NN{Buscar panel section plant}
+    NN -->|Encontrado| OO[Click botón Export]
+    NN -->|No encontrado| PP[❌ Marcar fallo]
+    OO --> QQ[Esperar descarga inicial]
+    QQ --> RR[Click Select All]
+    RR --> SS[Click Export final]
+    SS --> TT[Esperar descarga completa]
+    TT --> UU{wait_for_downloads sin .crdownload}
+    UU -->|Éxito| VV[✅ Success]
+    UU -->|Fallo| WW[Retry 2 intentos]
+    WW --> OO
+    
+    VV --> XX[Registrar en summary_of_exports]
+    PP --> XX
+    XX --> YY{¿Todas las secciones?}
+    YY -->|No| LL
+    YY -->|Sí| ZZ[Contabilizar éxitos: success_count]
+    
+    ZZ --> AAA{success_count == 5?}
+    AAA -->|Sí| BBB[plants_succeeded.append plant]
+    AAA -->|No| CCC[plants_failed.append plant]
+    
+    BBB --> DDD[Volver al inicio de Glide]
+    CCC --> DDD
+    DDD --> EEE{¿Todas las plantas?}
+    EEE -->|No| II
+    EEE -->|Sí| FFF[FIN Loop de plantas]
+    
+    FFF --> GGG[PASO 6: ORGANIZACIÓN Y COMPRESIÓN]
+    GGG --> HHH[organizar_y_comprimir gmail_svc]
+    HHH --> III[Crear estructura de carpetas EXPORTS/YYYY-MM-DD/]
+    III --> JJJ[Clasificar y mover CSV según nombre]
+    JJJ --> KKK[Crear 4 archivos ZIP uno por carpeta]
+    KKK --> LLL[Enviar correos con ZIP adjuntos]
+    LLL --> MMM[_send_email_batch a cada RECIPIENT]
+    MMM --> NNN[✅ Archivos organizados y enviados]
+    
+    NNN --> OOO[PASO 7: RESUMEN A WHATSAPP]
+    OOO --> PPP[Preparar mensaje con resumen]
+    PPP --> QQQ[plantas exitosas, fallidas, archivos]
+    QQQ --> RRR[Copiar mensaje al portapapeles pyperclip]
+    RRR --> SSS[Asegurar PAN/Bluetooth ARRIBA nuevamente]
+    SSS --> TTT[Abrir WhatsApp Web perfil persistente]
+    TTT --> UUU[Navegar a link de grupo/chat]
+    UUU --> VVV[Escribir enviando datos ...]
+    VVV --> WWW[Pegar mensaje Ctrl+V]
+    WWW --> XXX[Enviar Enter]
+    XXX --> YYY[Cerrar navegador WhatsApp]
+    
+    YYY --> ZZZ[FIN]
+    ZZZ --> AAAA[Asegurar PAN/Bluetooth ARRIBA al finalizar]
 
 ```
 
