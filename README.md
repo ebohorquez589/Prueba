@@ -274,9 +274,9 @@ pythonsections = [
 ## 3.2 Flujo Completo del Proceso
 
 ```mermaid
-flowchart TD
+graph TD
 
-    A[INICIO main()] --> B[PASO 1: PREPARACIÓN DE RED]
+    A["INICIO main()"] --> B["PASO 1: PREPARACION DE RED"]
 
     %% PASO 1
     B --> B1["Asegurar PAN/Bluetooth ARRIBA\nnm_ensure_pan_up()"]
@@ -286,80 +286,38 @@ flowchart TD
     B --> B3["Verificar DNS y conectividad IP"]
     B3 --> B3a["internet_by_ip() -> 8.8.8.8:53"]
     B3 --> B3b["dns_resolves(oauth2.googleapis.com)"]
-    B3 --> B3c["Si falla DNS -> Forzar públicos 1.1.1.1 / 8.8.8.8\nReintentos hasta 5"]
-    B --> B4["Red lista ✔️ / ❌ ABORTAR"]
+    B3 --> B3c["Si falla DNS -> Forzar publicos 1.1.1.1 / 8.8.8.8\nReintentos hasta 5"]
+    B --> B4["Red lista / ABORTAR"]
 
     %% PASO 2
-    A --> C[PASO 2: AUTENTICACIÓN GMAIL]
+    A --> C["PASO 2: AUTENTICACION GMAIL"]
     C --> C1["Cargar token.pickle"]
-    C --> C2["Si no existe o expiró -> OAuth con credentials.json\nGuardar token"]
+    C --> C2["Si no existe o expiro -> OAuth con credentials.json\nGuardar token"]
     C --> C3["Retorna gmail_service"]
 
     %% PASO 3
-    A --> D[PASO 3: INICIAR SELENIUM]
+    A --> D["PASO 3: INICIAR SELENIUM"]
     D --> D1["Configurar Chrome Options"]
     D --> D2["Iniciar WebDriver"]
     D --> D3["WebDriverWait(30s)"]
 
     %% PASO 4
-    A --> E[PASO 4: AUTENTICACIÓN EN GLIDE]
+    A --> E["PASO 4: AUTENTICACION EN GLIDE"]
     E --> E1["Navegar a go.glideapps.com"]
     E --> E2["Manejar advertencias"]
     E --> E3["Sign up with Email"]
     E --> E4["Ingresar correo"]
     E --> E5["Esperar correo Glide (10 intentos x 10s)"]
-    E --> E6["Obtener enlace mágico"]
+    E --> E6["Obtener enlace magico"]
     E --> E7["Abrir enlace en nueva pestaña"]
     E --> E8["Si aparece modal 'Open app here'"]
 
     %% PASO 5
-    A --> F[PASO 5: EXPORTACIÓN POR PLANTA\n(Loop 18 plantas)]
+    A --> F["PASO 5: EXPORTACION POR PLANTA\n(Loop 18 plantas)"]
     F --> F1["Para cada planta"]
-    F1 --> F1a["Navegar a planta específica\n//div[text()='{plant}']"]
-    F1 --> F1b["Ir a pestaña Data\n//div[@id='data-tab-btn']"]
+    F1 --> F1a["Navegar a planta especifica\n//div[text()='{plant}']"]
+    F1 --> F1b["Ir a pesta]()
 
-    F1 --> F2["Para cada sección (5 secciones)"]
-    F2 --> F2a["export_section(driver, wait, section, plant)"]
-    F2a --> F2a1["Buscar panel: {section} {plant}"]
-    F2a --> F2a2["Click botón Export"]
-    F2a --> F2a3["Esperar descarga inicial"]
-    F2a --> F2a4["Click Select All"]
-    F2a --> F2a5["Click Export final"]
-    F2a --> F2a6["Esperar descarga completa\nwait_for_downloads()"]
-    F2a --> F2a7["✔️ Success / ❌ Retry (2 intentos)"]
-
-    F2 --> F3["Registrar en summary_of_exports[]"]
-
-    F1 --> F4["Contabilizar éxitos"]
-    F4 --> F4a["Si 5 éxitos -> plants_succeeded"]
-    F4 --> F4b["Si no -> plants_failed"]
-
-    F1 --> F5["Volver al inicio de Glide"]
-
-    %% PASO 6
-    A --> G[PASO 6: ORGANIZACIÓN Y COMPRESIÓN]
-    G --> G1["Crear estructura EXPORTS/YYYY-MM-DD"]
-    G --> G2["Clasificar CSV por nombre: avisom1 / avisom2 / users / resto"]
-    G --> G3["Crear ZIP por carpeta"]
-    G --> G4["Enviar ZIP por correo\n_send_email_batch()"]
-
-    %% PASO 7
-    A --> H[PASO 7: RESUMEN A WHATSAPP]
-    H --> H1["Preparar mensaje resumen"]
-    H1 --> H1a["Plantas exitosas"]
-    H1 --> H1b["Plantas fallidas"]
-    H1 --> H1c["Listado de exports"]
-
-    H --> H2["Copiar al portapapeles"]
-    H --> H3["Asegurar PAN/Bluetooth ARRIBA"]
-
-    H --> H4["Abrir WhatsApp Web\nperfil persistente"]
-    H --> H5["Navegar a chat preconfigurado"]
-    H --> H6["Enviar mensaje\nCtrl+V + Enter"]
-    H --> H7["Cerrar navegador"]
-
-    %% FIN
-    H --> Z["FIN\nAsegurar PAN/Bluetooth ARRIBA"]
 
 ```
 
