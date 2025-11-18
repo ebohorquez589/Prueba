@@ -51,7 +51,7 @@ graph TD
     F --> H[RED LOCAL <br/>CIFS]
     
     G --> I[Glide Export Bot]
-    H --> J[Archivos CSV]
+    H --> J[ethernet_tasks (Archivos CSV)]
     
     I --> K[Notificaciones<br/>WhatsApp/Email]
     J --> K
