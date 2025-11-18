@@ -260,7 +260,7 @@ pythonsections = [
 ]
 ```
 
-### 3.1.3Manejo de Archivos y Correo Electrónico (Gmail API)
+###  3.1.3Manejo de Archivos y Correo Electrónico (Gmail API)
 
 - Utiliza la API de Gmail para la autenticación y el envío de correos electrónicos con archivos adjuntos.  
 - Organiza los archivos .csv descargados en directorios específicos según la sección (AVISOS_M1, AVISOS_M2, ACTIVIDADES_INSPECCIONES, USERS).  
