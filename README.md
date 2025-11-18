@@ -58,7 +58,7 @@ graph TD
     J --> K
 ```
 ## 1.4 Componentes Principales
-### Orquestador Principal
+### Timer.py
 
 - **Tipo:** Orquestador
 - **Descripción:** Coordina la ejecución de todos los procesos, gestión de red, reintentos y modo emergencia.
@@ -93,6 +93,6 @@ graph TD
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py`
 - **Conexión:** WAN
 
-# 2. Timer.py
+# 2. Orquestador principal - Timer.py
 
 
