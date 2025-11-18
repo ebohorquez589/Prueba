@@ -179,7 +179,7 @@ El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
 
 ## 2.2.1 **Impacto en el flujo**
 
-## WAN (Internet)
+### WAN (Internet)
 
 **Sin emergencia**
 - Utiliza la conexión D-Link.
@@ -188,7 +188,7 @@ El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
 **Con emergencia**
 - Usa únicamente Wi-Fi y también realiza 1 reintento.
 
-## LAN (Red Local)
+### LAN (Red Local)
 
 **Sin emergencia**
 - Ejecuta todas las tareas programadas en la red local.
@@ -196,7 +196,7 @@ El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
  **Con emergencia**
 - Se abortan inmediatamente todas las tareas LAN restantes.
 
-## Cierre del ciclo
+### Cierre del ciclo
 
 **Sin emergencia**
 - Se restablece el Internet normal (D-Link/Wi-Fi).
