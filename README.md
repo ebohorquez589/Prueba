@@ -271,7 +271,17 @@ pythonsections = [
 - Genera un resumen detallado de las exportaciones exitosas y fallidas.  
 - Intenta enviar este resumen a través de WhatsApp Web utilizando Selenium, pegando el contenido del portapapeles en un chat predefinido.
 
-## 3.2 Flujo Completo del Proceso
+## 3.2 Ubicación de exportaciones
+
+| Tipo de Dato               | Directorio Final Organizado                                           |
+|----------------------------|----------------------------------------------------------------------|
+| ACTIVIDADES e INSPECCIONES | /home/rasp5/Downloads/EXPORTS/2025-11-18/ACTIVIDADES_INSPECCIONES   |
+| AVISOM1                     | /home/rasp5/Downloads/EXPORTS/2025-11-18/AVISOS_M1                  |
+| AVISOM2                     | /home/rasp5/Downloads/EXPORTS/2025-11-18/AVISOS_M2                  |
+| Users                       | /home/rasp5/Downloads/EXPORTS/2025-11-18/USERS                      |
+
+
+## 3.3 Flujo Completo del Proceso
 
 ```mermaid
 graph TD
