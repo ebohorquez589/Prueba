@@ -67,7 +67,7 @@ graph TD
 ### GlideExportBot.py
 
 - **Tipo:** Bot de Exportación
-- **Descripción:** Extrae datos desde Glide a través de Internet. Ejecuta la lógica de exportación/bot que requiere acceso a Internet.
+- **Descripción:** Extrae datos desde Glide a través de Internet. 
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/GlideExportBot.py`
 - **Conexión:** WAN (Wired connection 2)
 
@@ -91,4 +91,7 @@ graph TD
 - **Descripción:** Prepara y mantiene una sesión activa de WhatsApp Web en la máquina.
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py`
 - **Conexión:** WAN
+
+# 2. Timer.py
+
 
