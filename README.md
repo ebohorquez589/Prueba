@@ -57,12 +57,37 @@ graph TD
     J --> K
 ```
 ## 1.4 Componentes Principales
-| Componente            | Tipo                       | Descripción                                                                                                                                  | Ubicación                                                             | Tipo de Conexión               |
-|-----------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|--------------------------------|
-| Orquestador Principal | Orquestador                 | Coordina la ejecución de todos los procesos, gestión de red, reintentos y modo emergencia.                                                   | /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/timer.py                   | WAN / LAN / Wi-Fi (Fallback)  |
-| GlideExportBot.py     | Bot de Exportación          | Extrae datos desde Glide a través de Internet, Ejecuta la lógica de exportación/bot que requiere acceso a Internet.                         | /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/GlideExportBot.py          | WAN (Wired connection 2)       |
-| Ethernet_tasks.py     | Manipulación de Archivos    | Procesa archivos en la red local/CIFS. Transferir, organizar y convertir archivos de datos                                                   | /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/ethernet_tasks.py          | LAN (Wired connection 1)       |
-| INDICADORES.py        | Script Auxiliar             |  consolida y reporta los datos de mantenimiento. Convierte los archivos CSV exportados en métricas de rendimiento (indicadores) para la toma de decisiones. | /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/indicadores.py             | WAN / LAN                      |
-| configwha.py          | Script Auxiliar             | Preparar y mantener una sesión activa de WhatsApp Web en la máquina                                                                         | /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py               | WAN                            |
+Componente            | Tipo                    | Descripción
+----------------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------
+Ubicación                                         | Tipo de Conexión
+============================================================================================================================================
+
+Orquestador Principal | Orquestador              | Coordina la ejecución de todos los procesos, gestión de red, reintentos y modo emergencia.
+Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/timer.py
+Conexión: WAN / LAN / Wi-Fi (Fallback)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+GlideExportBot.py     | Bot de Exportación       | Extrae datos desde Glide a través de Internet. Ejecuta la lógica de exportación/bot que requiere acceso a Internet.
+Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/GlideExportBot.py
+Conexión: WAN (Wired connection 2)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Ethernet_tasks.py     | Manipulación de Archivos | Procesa archivos en la red local/CIFS. Transferir, organizar y convertir archivos de datos.
+Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/ethernet_tasks.py
+Conexión: LAN (Wired connection 1)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+INDICADORES.py        | Script Auxiliar          | Consolida y reporta los datos de mantenimiento. Convierte los CSV exportados en métricas (indicadores) para decisiones.
+Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/indicadores.py
+Conexión: WAN / LAN
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+configwha.py          | Script Auxiliar          | Preparar y mantener una sesión activa de WhatsApp Web en la máquina.
+Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py
+Conexión: WAN
 
 
