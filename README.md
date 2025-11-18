@@ -274,7 +274,7 @@ pythonsections = [
 ## 3.2 Flujo Completo del Proceso
 
 ```mermaid
-graph TD
+flowchart TD
 
     A["INICIO main()"] --> B["PASO 1: PREPARACION DE RED"]
 
