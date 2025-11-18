@@ -158,3 +158,47 @@ graph TD
     BB --> CC
 
 ```
+
+## 2.2 Modo de Emergencia
+El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
+- Fallo en tarea WAN (GlideExportBot.py)
+- Fallo en tarea LAN (ethernet_tasks.py)
+- Imposibilidad de conectar a LAN
+- Excepción no controlada en el ciclo
+
+**Activación (trigger_emergency):**
+
+-Marca la bandera global EMERGENCY_STATE = True.
+
+-Crea un archivo (/tmp/orchestrator.emergency) con la razón de la falla.
+
+-Fuerza la conexión a Internet por Wi-Fi (ignorando D-Link y la LAN) para garantizar la comunicación mínima.
+
+-Efecto: Una vez activo, el modo de emergencia influye en el reintento de tareas WAN, en la interrupción inmediata de tareas LAN y en el estado de red final del sistema.
+
+**Impacto en el flujo:**
+
+- WAN (Internet)
+
+Sin emergencia:
+Utiliza la conexión D-Link.
+Si falla, hace fallback a Wi-Fi y realiza 1 reintento.
+
+Con emergencia:
+Usa únicamente Wi-Fi y también realiza 1 reintento.
+
+- LAN (Red Local)
+
+Sin emergencia:
+Ejecuta todas las tareas programadas en la red local.
+
+Con emergencia:
+Se abortan inmediatamente todas las tareas LAN restantes.
+
+- Cierre del ciclo
+
+Sin emergencia:
+Se restablece el Internet normal (D-Link/Wi-Fi).
+
+Con emergencia:
+La máquina queda funcionando únicamente con Wi-Fi.
