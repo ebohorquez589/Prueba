@@ -260,5 +260,15 @@ pythonsections = [
 ]
 ```
 
+### 3.1.3Manejo de Archivos y Correo Electrónico (Gmail API)
+
+- Utiliza la API de Gmail para la autenticación y el envío de correos electrónicos con archivos adjuntos.  
+- Organiza los archivos .csv descargados en directorios específicos según la sección (AVISOS_M1, AVISOS_M2, ACTIVIDADES_INSPECCIONES, USERS).  
+- Comprime los directorios en archivos .zip y los envía a una lista predefinida de destinatarios.
+
+### 3.1.4 Notificación Final (WhatsApp Web)
+
+- Genera un resumen detallado de las exportaciones exitosas y fallidas.  
+- Intenta enviar este resumen a través de WhatsApp Web utilizando Selenium, pegando el contenido del portapapeles en un chat predefinido.
 
 
