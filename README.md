@@ -108,6 +108,7 @@ El script **timer.py** (Orquestador) es el componente central de control que se 
 ---
 
 ## 2.1 Flujo de Ejecución del Ciclo
+```
 flowchart TD
     A([🚀 INICIO run_all()]) --> B([🔄 RESET: EMERGENCY_STATE = False])
 
@@ -138,4 +139,4 @@ flowchart TD
     N -->|SÍ| O([📶 Dejar Wi-Fi activa])
     N -->|NO| P([🌐 Restaurar Internet normal (D-Link/Wi-Fi)])
     M --> Q([🏁 FIN (próximo ciclo: según SCHEDULE_HOURS)])
-
+```
