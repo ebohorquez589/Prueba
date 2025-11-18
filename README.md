@@ -108,36 +108,34 @@ El script **timer.py** (Orquestador) es el componente central de control que se 
 ---
 
 ## 2.1 Flujo de Ejecución del Ciclo
-```
 flowchart TD
-    A[INICIO run_all()] --> B[RESET: EMERGENCY_STATE = False]
+    A([🚀 INICIO run_all()]) --> B([🔄 RESET: EMERGENCY_STATE = False])
 
     %% FASE 1: WAN
-    B --> C[FASE 1: WAN (Internet)]
-    C --> C1[Conectar a "Wired connection 2" (D-Link)]
-    C1 -->|Falla| C2[Fallback a Wi-Fi]
-    C1 --> D[Ejecutar GlideExportBot.py (timeout: 300s)]
-    D -->|✅ Éxito| E[Continuar a LAN]
-    D -->|❌ Fallo| F[MODO EMERGENCIA]
-    F --> F1[Cambiar a Wi-Fi únicamente]
-    F --> F2[Reintentar UNA VEZ]
-    D --> G[Resultado: success/failure]
+    B --> C([🌐 FASE 1: WAN (Internet)])
+    C --> C1([🔌 Conectar a "Wired connection 2" (D-Link)])
+    C1 -->|❌ Falla| C2([⚠️ Fallback a Wi-Fi])
+    C1 --> D([⚙️ Ejecutar GlideExportBot.py (timeout: 300s)])
+    D -->|✅ Éxito| E([➡️ Continuar a LAN])
+    D -->|❌ Fallo| F([🚨 MODO EMERGENCIA])
+    F --> F1([📶 Cambiar a Wi-Fi únicamente])
+    F --> F2([🔁 Reintentar UNA VEZ])
+    D --> G([📊 Resultado: success/failure])
 
     %% FASE 2: LAN
-    E --> H[FASE 2: LAN (Red Local)]
-    H --> H1[Conectar a "Wired connection 1" (eth0)]
-    H1 --> I[Ejecutar ethernet_tasks.py (timeout: 600s)]
-    I -->|✅ Éxito| J[Continuar a CIERRE]
-    I -->|❌ Fallo| K[MODO EMERGENCIA LAN]
-    K --> K1[Activar emergencia]
-    K --> K2[ABORTAR resto de tareas LAN]
-    I --> L[Resultado: success/failure]
+    E --> H([🖧 FASE 2: LAN (Red Local)])
+    H --> H1([🔌 Conectar a "Wired connection 1" (eth0)])
+    H1 --> I([⚙️ Ejecutar ethernet_tasks.py (timeout: 600s)])
+    I -->|✅ Éxito| J([➡️ Continuar a CIERRE])
+    I -->|❌ Fallo| K([🚨 MODO EMERGENCIA LAN])
+    K --> K1([⚠️ Activar emergencia])
+    K --> K2([⛔ ABORTAR resto de tareas LAN])
+    I --> L([📊 Resultado: success/failure])
 
     %% FASE 3: CIERRE
-    J --> M[FASE 3: CIERRE]
-    M --> N[¿Modo EMERGENCIA activo?]
-    N -->|SÍ| O[Dejar Wi-Fi activa]
-    N -->|NO| P[Restaurar Internet normal (D-Link/Wi-Fi)]
-    M --> Q[FIN (próximo ciclo: según SCHEDULE_HOURS)]
+    J --> M([🔒 FASE 3: CIERRE])
+    M --> N([❓ ¿Modo EMERGENCIA activo?])
+    N -->|SÍ| O([📶 Dejar Wi-Fi activa])
+    N -->|NO| P([🌐 Restaurar Internet normal (D-Link/Wi-Fi)])
+    M --> Q([🏁 FIN (próximo ciclo: según SCHEDULE_HOURS)])
 
-```
