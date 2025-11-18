@@ -235,8 +235,8 @@ Es un script de Python que realiza un proceso automatizado completo para extraer
 
 - Automatiza el inicio de sesión en Glide enviando un correo al bot y extrayendo el enlace mágico (Enlace unico) del buzón de Gmail.
 - Maneja el modal "This app is open in another tab" haciendo clic automáticamente en "Open app here".
- **Datos a exportar**:
-- **Plantas (18)**
+- **Datos a exportar**:
+**Plantas (18)**
 
 ```python
 pythonplants = [
@@ -249,7 +249,7 @@ pythonplants = [
     "0441_G. LUX DUITAMA", "0445_NGB", "0447_G. LUX VALLEDUPAR"
 ]
 ```
-- **Secciones por Planta (5)**
+**Secciones por Planta (5)**
 ```python
 pythonsections = [
     "AVISOM2",          # Avisos de mantenimiento tipo 2
