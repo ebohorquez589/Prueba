@@ -107,7 +107,6 @@ El script **timer.py** (Orquestador) es el componente central de control que se 
 
 - Implementar una lógica de Modo de Emergencia para manejar fallas en las tareas o problemas de conexión a Internet.
 
----
 
 ## 2.1 Flujo de Ejecución del Ciclo
 
@@ -178,7 +177,7 @@ El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
 
 - Efecto: Una vez activo, el modo de emergencia influye en el reintento de tareas WAN, en la interrupción inmediata de tareas LAN y en el estado de red final del sistema.
 
-### 2.2.1 **Impacto en el flujo**
+## 2.2.1 **Impacto en el flujo**
 
 ## WAN (Internet)
 
@@ -189,8 +188,6 @@ El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
 **Con emergencia**
 - Usa únicamente Wi-Fi y también realiza 1 reintento.
 
----
-
 ## LAN (Red Local)
 
 **Sin emergencia**
@@ -198,8 +195,6 @@ El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
 
  **Con emergencia**
 - Se abortan inmediatamente todas las tareas LAN restantes.
-
----
 
 ## Cierre del ciclo
 
