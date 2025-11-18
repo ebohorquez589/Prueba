@@ -9,10 +9,12 @@ El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (
 **🌐 Tarea WAN**
 
 **Script:** `GlideExportBot.py`
+**Conexión:** *Wired connection 2* (D-Link)  
 
 **🖧 Tarea LAN**
 
 **Script:** `ethernet_tasks.py`
+**Conexión:** *Wired connection 1* (eth0)  
 
 ---
 
@@ -97,15 +99,13 @@ graph TD
 ## 2.1 Descripción General
 
 **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/Timer.py`  
-**Timer.py** es el núcleo del sistema BIBLIOCASTIA, funcionando como un orquestador que coordina la ejecución de procesos entre conexiones WAN (Internet) y LAN (red local) con mecanismos robustos de recuperación ante fallos.
+El script **timer.py** (Orquestador) es el componente central de control que se encarga de:
 
-### 🌐 Fase WAN (Internet)
-**Conexión:** *Wired connection 2* (D-Link)  
-**Tarea ejecutada:** `GlideExportBot.py`
+- Programar la ejecución automática de tareas (Glide y Ethernet) en horas predefinidas (5:00, 13:00 y 21:00).
 
-### 🖧 Fase LAN (Red Local)
-**Conexión:** *Wired connection 1* (eth0)  
-**Tarea ejecutada:** `ethernet_tasks.py`
+- Gestionar la conectividad de red (WAN/LAN/Wi-Fi) de forma explícita antes de ejecutar cada tarea.
+
+- Implementar una lógica de Modo de Emergencia para manejar fallas en las tareas o problemas de conexión a Internet.
 
 ---
 
