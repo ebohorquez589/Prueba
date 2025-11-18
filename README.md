@@ -273,6 +273,14 @@ pythonsections = [
 
 ## 3.2 Ubicación de exportaciones
 
+Después de la descarga, la función organizar_y_comprimir mueve y estructura estos archivos CSV en directorios basados en la fecha de ejecución y la sección del dato.
+
+La estructura final se crea dentro del directorio EXPORTS dentro de Downloads:
+
+Raíz de Exportación: /home/rasp5/Downloads/EXPORTS
+
+Dentro de esa raíz, se crea una carpeta con la fecha actual (ej. 2025-11-18), y dentro de ella, los datos se separan por categoría:
+
 | Tipo de Dato               | Directorio Final Organizado                                           |
 |----------------------------|----------------------------------------------------------------------|
 | ACTIVIDADES e INSPECCIONES | /home/rasp5/Downloads/EXPORTS/2025-11-18/ACTIVIDADES_INSPECCIONES   |
