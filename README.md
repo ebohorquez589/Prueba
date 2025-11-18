@@ -97,21 +97,20 @@ graph TD
 ## 2.1 Descripción General
 
 **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/Timer.py`  
-**Función:** Coordina la ejecución secuencial y automatizada de tareas alternando entre redes WAN y LAN.
-
----
+**Timer.py** es el núcleo del sistema BIBLIOCASTIA, funcionando como un orquestador que coordina la ejecución de procesos entre conexiones WAN (Internet) y LAN (red local) con mecanismos robustos de recuperación ante fallos.
 
 ### 🌐 Fase WAN (Internet)
 **Conexión:** *Wired connection 2* (D-Link)  
 **Tarea ejecutada:** `GlideExportBot.py`
 
----
-
 ### 🖧 Fase LAN (Red Local)
 **Conexión:** *Wired connection 1* (eth0)  
 **Tarea ejecutada:** `ethernet_tasks.py`
 
-##2.2 Flujo de Ejecución del Ciclo
+---
+
+## 2.2 Flujo de Ejecución del Ciclo
+
 ```
 flowchart TD
     A[INICIO run_all()] --> B[RESET: EMERGENCY_STATE = False]
