@@ -96,9 +96,7 @@ graph TD
 - **Conexión:** WAN
 
 # 2. Orquestador principal - Timer.py
-## 2.1 Descripción General
 
-**Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/Timer.py`  
 El script **timer.py** (Orquestador) es el componente central de control que se encarga de:
 
 - Programar la ejecución automática de tareas (Glide y Ethernet) en horas predefinidas (5:00, 13:00 y 21:00).
@@ -109,7 +107,7 @@ El script **timer.py** (Orquestador) es el componente central de control que se 
 
 ---
 
-## 2.2 Flujo de Ejecución del Ciclo
+## 2.1 Flujo de Ejecución del Ciclo
 
 ```
 flowchart TD
