@@ -94,5 +94,54 @@ graph TD
 - **Conexión:** WAN
 
 # 2. Orquestador principal - Timer.py
+## 2.1 Descripción General
 
+**Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/Timer.py`  
+**Función:** Coordina la ejecución secuencial y automatizada de tareas alternando entre redes WAN y LAN.
 
+---
+
+### 🌐 Fase WAN (Internet)
+**Conexión:** *Wired connection 2* (D-Link)  
+**Tarea ejecutada:** `GlideExportBot.py`
+
+---
+
+### 🖧 Fase LAN (Red Local)
+**Conexión:** *Wired connection 1* (eth0)  
+**Tarea ejecutada:** `ethernet_tasks.py`
+
+##2.2 Flujo de Ejecución del Ciclo
+```
+flowchart TD
+    A[INICIO run_all()] --> B[RESET: EMERGENCY_STATE = False]
+
+    %% FASE 1: WAN
+    B --> C[FASE 1: WAN (Internet)]
+    C --> C1[Conectar a "Wired connection 2" (D-Link)]
+    C1 -->|Falla| C2[Fallback a Wi-Fi]
+    C1 --> D[Ejecutar GlideExportBot.py (timeout: 300s)]
+    D -->|✅ Éxito| E[Continuar]
+    D -->|❌ Fallo| F[MODO EMERGENCIA]
+    F --> F1[Cambiar a Wi-Fi únicamente]
+    F --> F2[Reintentar UNA VEZ]
+    D --> G[Resultado: success/failure]
+
+    %% FASE 2: LAN
+    B --> H[FASE 2: LAN (Red Local)]
+    H --> H1[Conectar a "Wired connection 1" (eth0)]
+    H1 --> I[Ejecutar ethernet_tasks.py (timeout: 600s)]
+    I -->|✅ Éxito| J[Continuar]
+    I -->|❌ Fallo| K[MODO EMERGENCIA LAN]
+    K --> K1[Activar emergencia]
+    K --> K2[ABORTAR resto de tareas LAN]
+    I --> L[Resultado: success/failure]
+
+    %% FASE 3: CIERRE
+    B --> M[FASE 3: CIERRE]
+    M --> N[¿Modo EMERGENCIA activo?]
+    N -->|SÍ| O[Dejar Wi-Fi activa]
+    N -->|NO| P[Restaurar Internet normal (D-Link/Wi-Fi)]
+    M --> Q[FIN (próximo ciclo: según SCHEDULE_HOURS)]
+
+```
