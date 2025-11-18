@@ -203,3 +203,17 @@ El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
 
 **Con emergencia**
 - La máquina queda funcionando únicamente con Wi-Fi.
+
+## 2.3 Inferfaz manual (GUI)
+
+Dos modos de ejecución manual:
+
+### **Ejecución Selectiva**
+- Elige qué tareas correr (Glide y/o EthernetTasks)
+- Respeta lógica de red y emergencia
+
+### **Ejecución Completa Segura**
+- Pausa el scheduler automático temporalmente
+- Ejecuta ciclo completo **SIN** solaparse con automático
+- Reactiva scheduler después
+
