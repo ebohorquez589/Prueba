@@ -1,4 +1,4 @@
-# 1. 📑 Resumen Ejecutivo
+# 1. Resumen Ejecutivo
 
 El sistema de **Bibliocastia** es una solución automatizada diseñada para la gestión y sincronización de datos en un entorno **Raspberry Pi**.
 
@@ -15,11 +15,11 @@ El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (
 
 ---
 
-## 1.1 🕒 Programación de Ejecución
+## 1.1 Programación de Ejecución
 
 Las tareas se ejecutan automáticamente en ciclos **tres veces al día**, según la programación definida en la variable `SCHEDULE_HOURS`.
 
-## 1.2 🔁 Alta Disponibilidad y Resiliencia
+## 1.2 Alta Disponibilidad y Resiliencia
 
 Además de la programación, el sistema incorpora lógica de alta disponibilidad y resiliencia, incluyendo:
 
@@ -29,7 +29,7 @@ Además de la programación, el sistema incorpora lógica de alta disponibilidad
 
 Esto asegura la **continuidad de la operación** o deja el sistema en un **estado conocido y seguro**.
 
-## 🧩 Nota
+## Nota
 
 > **APScheduler (Advanced Python Scheduler)** es una biblioteca de Python que permite programar la ejecución de funciones (tareas o "jobs") para que se ejecuten más tarde, ya sea una sola vez o de forma periódica.  
 >  
@@ -37,7 +37,7 @@ Esto asegura la **continuidad de la operación** o deja el sistema en un **estad
 
 ---
 
-## 1.3 🏗️ Diagrama de Arquitectura General
+## 1.3 Diagrama de Arquitectura General
 ```mermaid
 graph TD
     B[APScheduler<br/>3 ejecuciones diarias<br/>Horarios: 05:00, 13:00, 21:00] --> A[TIMER.PY <br/>Orquestador]
@@ -56,4 +56,14 @@ graph TD
     I --> K[Notificaciones<br/>WhatsApp/Email]
     J --> K
 
-    
+## 1.4 Componentes Principales
+| Componente            | Tipo                 | Descripción                                                                 | Ubicación                                                                     | Tipo de Conexión               |
+|-----------------------|----------------------|------------------------------------------------------------------------------|-------------------------------------------------------------------------------|--------------------------------|
+| Orquestador Principal | Script Python        | Lógica de programación, gestión de red, reintentos y modo emergencia.       | /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/timer.py                           | WAN / LAN / Wi-Fi (Fallback)  |
+| Tarea Internet        | Script Python        | Ejecuta la lógica de exportación/bot que requiere acceso a Internet.        | SCRIPT_PATH (/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/GlideExportBot.py)    | WAN (Wired connection 2)       |
+| Tarea Red Local       | Script Python        | Ejecuta tareas que requieren acceso a la Red Local.                         | ETHERNET_TASKS_SCRIPT (/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/ethernet_tasks.py) | LAN (Wired connection 1)       |
+| Conexión WAN          | Perfil de Red (NM)   | Conexión cableada principal para acceso a Internet (p. ej., módem 3G/4G).   | Configuración de NetworkManager (NM)                                           | WAN (Wired connection 2)       |
+| Conexión LAN          | Perfil de Red (NM)   | Conexión cableada principal para acceso a la Red Local.                     | Configuración de NetworkManager (NM)                                           | LAN (Wired connection 1)       |
+| Wi-Fi (Fallback)      | Perfiles de Red (NM) | Conexiones inalámbricas almacenadas, usadas automáticamente en EMERGENCIA. | Perfiles de NetworkManager (NM)                                                | WAN (Wi-Fi)                    |
+| APScheduler           | Librería Python      | Programación de la función run_all 3 veces al día.                          | Importada en timer.py                                                          | N/A (Scheduler)                |
+
