@@ -271,4 +271,49 @@ pythonsections = [
 - Genera un resumen detallado de las exportaciones exitosas y fallidas.  
 - Intenta enviar este resumen a través de WhatsApp Web utilizando Selenium, pegando el contenido del portapapeles en un chat predefinido.
 
+## 3.2 Flujo Completo del Proceso
+
+```mermaid
+flowchart TD
+
+    A[INICIO main()] --> B[PASO 1: PREPARACIÓN DE RED]
+
+    %% PASO 1
+    B --> B1[Asegurar PAN/Bluetooth ARRIBA<br/>nm_ensure_pan_up()]
+    B --> B2[Conectar Internet con fallback]
+    B2 --> B2a[Intentar: Wired connection 2 (D-Link)]
+    B2 --> B2b[Si falla → Probar Wi-Fi<br/>ensure_internet_with_wifi_fallback()]
+    B --> B3[Verificar DNS y conectividad IP]
+    B3 --> B3a[internet_by_ip() → 8.8.8.8:53]
+    B3 --> B3b[dns_resolves(oauth2.googleapis.com)]
+    B3 --> B3c[Si falla DNS → Forzar públicos<br/>1.1.1.1 / 8.8.8.8<br/>Reintentos hasta 5]
+    B --> B4[Red lista ✔️ / ❌ ABORTAR]
+
+    %% PASO 2
+    A --> C[PASO 2: AUTENTICACIÓN GMAIL]
+    C --> C1[Cargar token.pickle]
+    C --> C2[Si no existe o expiró<br/>OAuth con credentials.json<br/>Guardar token]
+    C --> C3[Retorna gmail_service]
+
+    %% PASO 3
+    A --> D[PASO 3: INICIAR SELENIUM]
+    D --> D1[Configurar Chrome Options]
+    D --> D2[Iniciar WebDriver]
+    D --> D3[WebDriverWait(30s)]
+
+    %% PASO 4
+    A --> E[PASO 4: AUTENTICACIÓN EN GLIDE]
+    E --> E1[Navegar a go.glideapps.com]
+    E --> E2[Manejar advertencias]
+    E --> E3[Sign up with Email]
+    E --> E4[Ingresar correo]
+    E --> E5[Esperar correo Glide<br/>10 intentos × 10s]
+    E --> E6[Obtener enlace mágico]
+    E --> E7[Abrir enlace en nueva pestaña]
+    E --> E8[Si aparece modal<br/>Open app here]
+
+    %% PASO 5
+    A --> F[PASO 5: EXPORTACIÓN POR PLANTA<br/>(18 p]()
+
+```
 
