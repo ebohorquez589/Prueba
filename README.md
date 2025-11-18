@@ -218,4 +218,47 @@ Dos modos de ejecución manual:
 - Reactiva scheduler después
 
 ---
-# 3.
+# 3. Glideexportbot.py - exportador WAN
+
+Es un script de Python que realiza un proceso automatizado completo para extraer datos de Glide Apps, exportarlos a archivos CSV, organizarlos, comprimirlos en archivos ZIP y, finalmente, enviar esos ZIPs por correo electrónico (Gmail) y un resumen del proceso por WhatsApp Web, utilizando Selenium WebDriver para interactuar con la interfaz web.
+
+## 3.1 Funcionalidades claves
+
+### 3.1.1 Gestión de Red con Fallback (nmcli)
+
+- Intenta conectarse a una conexión WAN cableada (**Wired connection 2**) varias veces.
+- Si falla, prueba con las redes Wi-Fi conocidas como mecanismo de fallback.
+- Preserva las conexiones PAN/Bluetooth durante los cambios de red, asegurando que no se desconecten.
+- Incluye lógica para forzar servidores DNS públicos (**Cloudflare/Google**) si la resolución inicial falla.
+
+### 3.1.2 Web Scraping y Automatización (Selenium)
+
+- Automatiza el inicio de sesión en Glide enviando un correo al bot y extrayendo el enlace mágico (Enlace unico) del buzón de Gmail.
+- Maneja el modal "This app is open in another tab" haciendo clic automáticamente en "Open app here".
+ **Datos a exportar**:
+- **Plantas (18)**
+
+```python
+pythonplants = [
+    "0002_GASCOL CENTRO", "0011_GASCOL SUR", "0021_G. LUX BOGOTÁ",
+    "0079_BELLO", "0092_MEDELLÍN", "0111_MALAMBO",
+    "0198_POSTOBÓN PEREIRA", "0381_G. LUX MONTERÍA", "0385_NEIVA",
+    "0393_VILLAVICENCIO", "0395_G. LUX PASTO", 
+    "0398_G. LUX VILLAVICENCIO", "0410_YUMBO", 
+    "0422_G. LUX PIEDECUESTA", "0438_CÚCUTA",
+    "0441_G. LUX DUITAMA", "0445_NGB", "0447_G. LUX VALLEDUPAR"
+]
+```
+- **Secciones por Planta (5)**
+```python
+pythonsections = [
+    "AVISOM2",          # Avisos de mantenimiento tipo 2
+    "ACTIVIDADES",      # Actividades de mantenimiento
+    "INSPECCIONES",     # Inspecciones realizadas
+    "AVISOM1",          # Avisos de mantenimiento tipo 1
+    "Users"             # Usuarios del sistema
+]
+```
+
+
+
