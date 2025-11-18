@@ -217,3 +217,5 @@ Dos modos de ejecución manual:
 - Ejecuta ciclo completo **SIN** solaparse con automático
 - Reactiva scheduler después
 
+---
+# 3.
