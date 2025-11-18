@@ -274,7 +274,8 @@ pythonsections = [
 ## 3.2 Flujo Completo del Proceso
 
 ```mermaid
-graph TD
+
+flowchart TD
 
     A[INICIO main()] --> B[PASO 1: PREPARACIÓN DE RED]
 
@@ -313,7 +314,60 @@ graph TD
     E --> E8[Si aparece modal<br/>Open app here]
 
     %% PASO 5
-    A --> F[PASO 5: EXPORTACIÓN POR PLANTA<br/>(18 p]()
+    A --> F[PASO 5: EXPORTACIÓN POR PLANTA<br/>(18 plantas)]
+
+    F --> F1[Para cada planta]
+    F1 --> F1a[Navegar a planta<br/>//div[text()='{plant}']]
+    F1 --> F1b[Ir a pestaña Data]
+
+    F1 --> F2[Para cada sección (5)]
+    F2 --> F2a[export_section()]
+    F2a --> F2a1[Buscar panel sección+planta]
+    F2a --> F2a2[Click Export]
+    F2a --> F2a3[Esperar descarga inicial]
+    F2a --> F2a4[Click Select All]
+    F2a --> F2a5[Export final]
+    F2a --> F2a6[Esperar descarga<br/>wait_for_downloads()]
+    F2a --> F2a7[✔️ Success / ❌ Retry (2)]
+
+    F2 --> F3[Registrar en summary_of_exports[]]
+
+    F1 --> F4[Contabilizar éxitos]
+    F4 --> F4a[Si 5 éxitos → plants_succeeded]
+    F4 --> F4b[Si no → plants_failed]
+
+    F1 --> F5[Volver a inicio de Glide]
+
+    %% PASO 6
+    A --> G[PASO 6: ORGANIZACIÓN Y COMPRESIÓN]
+
+    G --> G1[Crear estructura EXPORTS/YYYY-MM-DD]
+    G --> G2[Clasificar CSV por nombre<br/>avisom1 / avisom2 / users / resto]
+    G --> G3[Crear ZIP por carpeta]
+    G --> G4[Enviar ZIP por correo<br/>_send_email_batch()]
+
+    %% PASO 7
+    A --> H[PASO 7: RESUMEN A WHATSAPP]
+
+    H --> H1[Preparar mensaje resumen]
+    H1 --> H1a[Plantas exitosas]
+    H1 --> H1b[Plantas fallidas]
+    H1 --> H1c[Listado de exports]
+
+    H --> H2[Copiar al portapapeles]
+    H --> H3[Asegurar PAN/Bluetooth ARRIBA]
+
+    H --> H4[Abrir WhatsApp Web<br/>perfil persistente]
+    H --> H5[Navegar a chat preconfigurado]
+    H --> H6[Enviar mensaje<br/>Ctrl+V + Enter]
+    H --> H7[Cerrar navegador]
+
+    %% FIN
+    H --> Z[FIN<br/>Asegurar PAN/Bluetooth ARRIBA]
+
+```
+
+
 
 ```
 
