@@ -8,13 +8,13 @@ El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (
 
 **🌐 Tarea WAN**
 
-**Script:** `GlideExportBot.py`
-**Conexión:** *Wired connection 2* (D-Link)  
+- **Script:** `GlideExportBot.py`
+- **Conexión:** *Wired connection 2* (D-Link)  
 
 **🖧 Tarea LAN**
 
-**Script:** `ethernet_tasks.py`
-**Conexión:** *Wired connection 1* (eth0)  
+- **Script:** `ethernet_tasks.py`
+- **Conexión:** *Wired connection 1* (eth0)  
 
 ---
 
