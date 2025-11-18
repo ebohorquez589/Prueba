@@ -57,37 +57,38 @@ graph TD
     J --> K
 ```
 ## 1.4 Componentes Principales
-Componente            | Tipo                    | Descripción
-----------------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------
-Ubicación                                         | Tipo de Conexión
-============================================================================================================================================
+Orquestador Principal
 
-Orquestador Principal | Orquestador              | Coordina la ejecución de todos los procesos, gestión de red, reintentos y modo emergencia.
+Tipo: Orquestador
+Descripción: Coordina la ejecución de todos los procesos, gestión de red, reintentos y modo emergencia.
 Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/timer.py
 Conexión: WAN / LAN / Wi-Fi (Fallback)
 
---------------------------------------------------------------------------------------------------------------------------------------------
+GlideExportBot.py
 
-GlideExportBot.py     | Bot de Exportación       | Extrae datos desde Glide a través de Internet. Ejecuta la lógica de exportación/bot que requiere acceso a Internet.
+Tipo: Bot de Exportación
+Descripción: Extrae datos desde Glide a través de Internet. Ejecuta la lógica de exportación/bot que requiere acceso a Internet.
 Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/GlideExportBot.py
 Conexión: WAN (Wired connection 2)
 
---------------------------------------------------------------------------------------------------------------------------------------------
+Ethernet_tasks.py
 
-Ethernet_tasks.py     | Manipulación de Archivos | Procesa archivos en la red local/CIFS. Transferir, organizar y convertir archivos de datos.
+Tipo: Manipulación de Archivos
+Descripción: Procesa archivos en la red local/CIFS: transferir, organizar y convertir archivos de datos.
 Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/ethernet_tasks.py
 Conexión: LAN (Wired connection 1)
 
---------------------------------------------------------------------------------------------------------------------------------------------
+INDICADORES.py
 
-INDICADORES.py        | Script Auxiliar          | Consolida y reporta los datos de mantenimiento. Convierte los CSV exportados en métricas (indicadores) para decisiones.
+Tipo: Script Auxiliar
+Descripción: Consolida y reporta datos de mantenimiento. Convierte archivos CSV exportados en indicadores para la toma de decisiones.
 Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/indicadores.py
 Conexión: WAN / LAN
 
---------------------------------------------------------------------------------------------------------------------------------------------
+configwha.py
 
-configwha.py          | Script Auxiliar          | Preparar y mantener una sesión activa de WhatsApp Web en la máquina.
+Tipo: Script Auxiliar
+Descripción: Prepara y mantiene una sesión activa de WhatsApp Web en la máquina.
 Ubicación: /home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py
 Conexión: WAN
-
 
