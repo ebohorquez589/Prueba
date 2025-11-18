@@ -95,6 +95,8 @@ graph TD
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py`
 - **Conexión:** WAN
 
+---
+
 # 2. Orquestador principal - Timer.py
 
 El script **timer.py** (Orquestador) es el componente central de control que se encarga de:
@@ -176,29 +178,33 @@ El Modo de Emergencia (EMERGENCY_STATE) se activa ante cualquier falla crítica.
 
 - Efecto: Una vez activo, el modo de emergencia influye en el reintento de tareas WAN, en la interrupción inmediata de tareas LAN y en el estado de red final del sistema.
 
-### 2.2.1**Impacto en el flujo:**
+### 2.2.1 **Impacto en el flujo**
 
-#### WAN (Internet)
+## WAN (Internet)
 
-**Sin emergencia:**
-Utiliza la conexión D-Link.
-Si falla, hace fallback a Wi-Fi y realiza 1 reintento.
+**Sin emergencia**
+- Utiliza la conexión D-Link.
+- Si falla, hace fallback a Wi-Fi y realiza 1 reintento.
 
-**Con emergencia:**
-Usa únicamente Wi-Fi y también realiza 1 reintento.
+**Con emergencia**
+- Usa únicamente Wi-Fi y también realiza 1 reintento.
 
-- LAN (Red Local)
+---
 
-**Sin emergencia:**
-Ejecuta todas las tareas programadas en la red local.
+## LAN (Red Local)
 
-**Con emergencia:**
-Se abortan inmediatamente todas las tareas LAN restantes.
+**Sin emergencia**
+- Ejecuta todas las tareas programadas en la red local.
 
-- Cierre del ciclo
+ **Con emergencia**
+- Se abortan inmediatamente todas las tareas LAN restantes.
 
-**Sin emergencia:**
-Se restablece el Internet normal (D-Link/Wi-Fi).
+---
 
-**Con emergencia:**
-La máquina queda funcionando únicamente con Wi-Fi.
+## Cierre del ciclo
+
+**Sin emergencia**
+- Se restablece el Internet normal (D-Link/Wi-Fi).
+
+**Con emergencia**
+- La máquina queda funcionando únicamente con Wi-Fi.
