@@ -109,7 +109,7 @@ El script **timer.py** (Orquestador) es el componente central de control que se 
 
 ## 2.1 Flujo de Ejecución del Ciclo
 
-```
+```mermaid**
 
 graph TD
     A[INICIO run_all] --> B[RESET: EMERGENCY_STATE = False]
