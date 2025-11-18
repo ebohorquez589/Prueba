@@ -78,14 +78,14 @@ graph TD
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/ethernet_tasks.py`
 - **Conexión:** LAN (Wired connection 1)
 
-### INDICADORES.py
+### Indicadores.py
 
 - **Tipo:** Script Auxiliar
 - **Descripción:** Consolida y reporta datos de mantenimiento. Convierte archivos CSV exportados en indicadores para la toma de decisiones.
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/indicadores.py`
 - **Conexión:** WAN / LAN
 
-### configwha.py
+### Configwha.py
 
 - **Tipo:** Script Auxiliar
 - **Descripción:** Prepara y mantiene una sesión activa de WhatsApp Web en la máquina.
