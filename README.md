@@ -6,12 +6,12 @@ Este sistema opera de manera continua y utiliza un **Orquestador (`Timer.py`)** 
 
 El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (Red Local)** para ejecutar dos procesos principales:
 
-**🌐 Tarea WAN**
+** Tarea WAN**
 
 - **Script:** `GlideExportBot.py`
 - **Conexión:** *Wired connection 2* (D-Link)  
 
-**🖧 Tarea LAN**
+** Tarea LAN**
 
 - **Script:** `ethernet_tasks.py`
 - **Conexión:** *Wired connection 1* (eth0)  
@@ -125,8 +125,8 @@ graph TD
     H --> G
     
     G --> I{¿Ejecución exitosa?}
-    I -->|Sí| J[✅ Éxito - Continuar]
-    I -->|No| K[❌ MODO EMERGENCIA]
+    I -->|Sí| J[ Éxito - Continuar]
+    I -->|No| K[ MODO EMERGENCIA]
     K --> L[Cambiar a Wi-Fi únicamente]
     L --> M[Reintentar UNA VEZ]
     M --> N[Resultado: failure]
@@ -137,8 +137,8 @@ graph TD
     D --> P[Conectar a Wired connection 1 eth0]
     P --> Q[Ejecutar ethernet_tasks.py timeout: 600s]
     Q --> R{¿Ejecución exitosa?}
-    R -->|Sí| S[✅ Éxito - Continuar]
-    R -->|No| T[❌ MODO EMERGENCIA]
+    R -->|Sí| S[ Éxito - Continuar]
+    R -->|No| T[ MODO EMERGENCIA]
     T --> U[Activar EMERGENCY_STATE = True]
     U --> V[ABORTAR resto de tareas LAN]
     V --> W[Resultado: failure]
@@ -305,7 +305,7 @@ graph TD
     H --> G
     
     G --> I{internet_by_ip y DNS resuelven?}
-    I -->|Sí| J[✅ Red lista]
+    I -->|Sí| J[ Red lista]
     I -->|No| K[Forzar DNS públicos 1.1.1.1, 8.8.8.8]
     K --> L[Reintentos con backoff hasta 5 intentos]
     L --> I
@@ -345,13 +345,13 @@ graph TD
     LL --> MM[export_section driver, wait, section, plant]
     MM --> NN{Buscar panel section plant}
     NN -->|Encontrado| OO[Click botón Export]
-    NN -->|No encontrado| PP[❌ Marcar fallo]
+    NN -->|No encontrado| PP[ Marcar fallo]
     OO --> QQ[Esperar descarga inicial]
     QQ --> RR[Click Select All]
     RR --> SS[Click Export final]
     SS --> TT[Esperar descarga completa]
     TT --> UU{wait_for_downloads sin .crdownload}
-    UU -->|Éxito| VV[✅ Success]
+    UU -->|Éxito| VV[ Success]
     UU -->|Fallo| WW[Retry 2 intentos]
     WW --> OO
     
@@ -378,7 +378,7 @@ graph TD
     JJJ --> KKK[Crear 4 archivos ZIP uno por carpeta]
     KKK --> LLL[Enviar correos con ZIP adjuntos]
     LLL --> MMM[_send_email_batch a cada RECIPIENT]
-    MMM --> NNN[✅ Archivos organizados y enviados]
+    MMM --> NNN[ Archivos organizados y enviados]
     
     NNN --> OOO[PASO 7: RESUMEN A WHATSAPP]
     OOO --> PPP[Preparar mensaje con resumen]
