@@ -41,7 +41,9 @@ Esto asegura la **continuidad de la operación** o deja el sistema en un **estad
 ---
 
 ## 1.3 Diagrama de Arquitectura General
+
 ```mermaid
+
 graph TD
     B[APScheduler<br/>3 ejecuciones diarias<br/>Horarios: 05:00, 13:00, 21:00] --> A[TIMER.PY <br/>Orquestador]
     A --> C[FASE WAN<br/>Internet]
@@ -58,6 +60,7 @@ graph TD
     
     I --> K[Notificaciones<br/>WhatsApp/Email]
     J --> K
+
 ```
 ## 1.4 Componentes Principales
 ### Timer.py
