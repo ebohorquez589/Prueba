@@ -119,9 +119,20 @@ graph TB
     H --> I[ethernet_tasks.py<br/>Procesador LAN]
     
     %% ========== FLUJO DE DATOS WAN → LAN ==========
-    G --> I
-    I --> J[Conversión CSV → Excel]
-    J --> K[ Procesamiento Completado]
+    G --> J[ Archivos CSV Exportados]
+    J --> I
+    I --> K[ Monta recurso CIFS<br/>//sglimttoprod/compartida]
+    I --> L[ Copia archivos a red compartida]
+    I --> M[ Conversión CSV → Excel]
+    
+    %% ========== RESULTADO FINAL ==========
+    L --> N[ Datos disponibles en<br/>BIBLIOCASTIA/ Recursos Compartidos]
+    M --> N
+    
+    style A fill:#f3e5f5
+    style E fill:#e8f5e8
+    style I fill:#fff3e0
+    style N fill:#f1f8e9
 ```
 
 ## 1.5.2  GlideExportBot.py, Indicadores.py y configwha.py
