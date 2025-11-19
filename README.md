@@ -129,10 +129,6 @@ graph TB
     L --> N[ Datos disponibles en<br/>BIBLIOCASTIA/ Recursos Compartidos]
     M --> N
     
-    style A fill:#f3e5f5
-    style E fill:#e8f5e8
-    style I fill:#fff3e0
-    style N fill:#f1f8e9
 ```
 
 ## 1.5.2  GlideExportBot.py, Indicadores.py y configwha.py
