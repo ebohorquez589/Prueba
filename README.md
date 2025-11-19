@@ -486,3 +486,117 @@ graph TD
 
 ```
 
+# 5. Indicadores.py - análisi y reportes
+Procesa los archivos CSV, calcula indicadores de mantenimiento (KPIs), genera reportes Excel con múltiples hojas y envía resultados por Gmail y WhatsApp.
+
+El código completo implementa un Pipeline de Automatización de Indicadores de Mantenimiento (CAM). Su objetivo principal es:
+
+- Ingesta (E): Leer archivos CSV exportados de un sistema (probablemente SAP o similar).
+
+- Transformación (T): Estandarizar, limpiar y calcular más de una docena de métricas de horas/duración, desglosadas por planta (Código Único) y por tipo de mantenimiento (Preventivo, Predictivo, Correctivo).
+
+- Carga y Distribución (L): Generar un informe final en Excel y distribuir un resumen por correo electrónico (Gmail) y un aviso de cumplimiento por mensajería instantánea (WhatsApp).
+
+
+## 5.1 Fase 1: Configuración y Preparación del Entorno
+
+Se establecen las bases para la ejecución:
+
+### Rutas de Archivos
+- Se definen las carpetas de entrada (`ROOT_FOLDER`, `SUBFOLDER`) y salida (`OUTPUT_FOLDER`) en un entorno Linux.
+
+### Conectividad
+- **WhatsApp / Selenium:** Rutas del driver de Chrome y el perfil de usuario.  
+- **Gmail:** Credenciales, alcance (`SCOPES`) y lista de destinatarios (`RECIPIENTS`).
+
+### Utilidades
+- Se inicializan funciones de ayuda para la gestión de rutas:
+  - `get_latest_date_folder`
+  - `best_chromedriver`
+
+
+---
+
+## 5.2 Fase 2: Limpieza y Normalización de Datos
+
+Esta fase asegura que los datos CSV sean consistentes, independientemente de cómo se hayan exportado:
+
+### Lectura Robusta
+- `leer_csv_robusto` prueba múltiples combinaciones de separador y codificación (`;` o `,` / `utf-8` o `latin-1`).
+
+### Armonización de Columnas
+- `armonizar_columnas` estandariza los encabezados (ejemplo: `duracion` a `Duración`).
+
+### Normalización de Valores
+- `convertir_a_flotante` convierte la columna **Duración** a números decimales flotantes, manejando errores como comas decimales.
+
+### Tipo de Mantenimiento
+- `tipo_equivalente` clasifica cada fila como:
+  - Correctivo  
+  - Preventivo  
+  - Predictivo  
+  Basándose en códigos (como `PMXX`) o texto.
+
+### Preprocesamiento In-Place
+- `process_csv_files_inplace` limpia nombres de archivo y reemplaza puntos por comas en la columna **Duración** del CSV original.
+
+
+---
+
+##  5.3 Fase 3: Cálculo y Consolidación de Indicadores
+
+La función central `construir_excel_indicadores` realiza el procesamiento y la agregación de métricas:
+
+### Extracción de Métricas
+- Itera sobre cada CSV y llama a más de una docena de funciones de suma:
+  - `sumar_duracion`
+  - `duracion_tipo_preventivo_o_total`
+  - `calcular_duracion_programada`
+  - …entre muchas otras.
+
+### Construcción del DataFrame Base
+- Se consolidan todos los resultados en un DataFrame (`df_resultados`).
+
+### Ordenamiento
+- Se ordenan las filas según una lista predefinida de **Códigos Únicos** (plantas / áreas).
+
+### Generación de Sheet1
+- Guardado del DataFrame como la hoja inicial del archivo Excel.
+
+
+---
+
+##  5.4 Fase 4: Generación y Formato de Informes Unificados (Excel)
+
+Las funciones `unify_data_*` (general, preventivo, predictivo, correctivo) refinan el Excel:
+
+### Agregación por Código
+- Agrupan y suman métricas de **Sheet1** por **Código Único**, generando un resumen por planta.
+
+### Hojas Específicas
+- Crean hojas separadas:
+  - `indicadores_cam` (general)
+  - `indicadores_cam_Preventivo`
+  - `indicadores_cam_Predictivo`
+  - `indicadores_cam_Correctivo`
+
+### Formato Condicional
+- Utilizando **openpyxl**, se aplica un relleno de color (rojo → verde) a la columna **Porcentaje**, facilitando la lectura del rendimiento.
+
+
+---
+
+## Fase 5: Distribución Automatizada de Resultados
+
+El código finaliza el proceso notificando a los usuarios:
+
+### Correo Electrónico (Gmail)
+- `authenticate_gmail` establece la conexión segura.  
+- `enviar_resultados_indicadores` envía el correo a los destinatarios definidos, adjuntando el archivo Excel.
+
+### Mensaje de WhatsApp (Selenium)
+- `build_whatsapp_message_from_excel` lee la hoja `indicadores_cam` y construye un mensaje corto con emojis de estado
+- `enviar_whatsapp_misma_forma` abre WhatsApp Web con Selenium, copia el mensaje y lo envía al grupo predefinido.
+
+---
+
