@@ -6,12 +6,12 @@ Este sistema opera de manera continua y utiliza un **Orquestador (`Timer.py`)** 
 
 El orquestador alterna la conectividad de red entre **WAN (Internet)** y **LAN (Red Local)** para ejecutar dos procesos principales:
 
-** Tarea WAN**
+**Tarea WAN**
 
 - **Script:** `GlideExportBot.py`
 - **Conexión:** *Wired connection 2* (D-Link)  
 
-** Tarea LAN**
+**Tarea LAN**
 
 - **Script:** `ethernet_tasks.py`
 - **Conexión:** *Wired connection 1* (eth0)  
