@@ -659,3 +659,39 @@ graph TD
     NN --> OO
 
 ```
+# 6. configwha.py - perfil de sesión
+
+configwha.py es un script auxiliar especializado en la gestión y configuración del cliente de WhatsApp Web mediante Selenium. Su función principal es proporcionar una interfestructura estable y persistente para las comunicaciones vía WhatsApp del sistema BIBLIOCASTIA.
+
+## 6.1 Funcionalidades claves
+
+- Inicializar sesión persistente de WhatsApp Web
+
+- Mantener autenticación entre ejecuciones
+
+- Proveer configuración reutilizable para otros componentes
+
+- Gestionar perfil de usuario específico para WhatsApp
+
+```mermaid
+
+graph TD
+    A[Inicio Script open_whatsapp] --> B(Definir Rutas: ChromeDriver y Perfil de Usuario)
+    B --> C(Configurar Opciones de Chrome: user-data-dir)
+    C --> D(Inicializar WebDriver de Chrome)
+    D --> E{Driver.get("https://web.whatsapp.com")}
+    E -- 1a Ejecución (Sesión Inactiva) --> F[Paso Manual: Escanear Código QR]
+    E -- Ejecuciones Posteriores (Sesión Activa) --> G[Carga la Sesión Guardada en /WhatsAppProfile]
+    F --> G
+    G --> H(Mantiene Navegador Abierto)
+    H -- Usuario Presiona Enter --> I(Driver.quit(): Cierra Navegador)
+    I --> J[Fin del Script]
+
+    style A fill:#DDEBF7,stroke:#333,stroke-width:2px
+    style D fill:#C6E0B4,stroke:#333,stroke-width:2px
+    style G fill:#E2EFDA,stroke:#333,stroke-width:2px
+
+
+
+```
+
