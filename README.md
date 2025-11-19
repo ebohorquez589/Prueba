@@ -436,7 +436,7 @@ Conversión CSV a Excel (convert_csv_to_excel): Utiliza la librería pandas para
 ```mermaid
 
 graph TD
-    A[ Inicio finalize() ] --> B[1. PREPARACIÓN DE RED]
+    A[ Inicio finalize ] --> B[1. PREPARACIÓN DE RED]
     
     B --> C[nm_ensure_pan_up<br/>Garantizar PAN/Bluetooth activa]
     C --> D[ensure_lan_for_cifs<br/>Conectar LAN cableada]
