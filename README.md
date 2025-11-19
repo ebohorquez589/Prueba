@@ -155,6 +155,18 @@ graph TB
 | openpyxl                     | (última)    | Permite a Pandas y scripts manipular archivos `.xlsx`.                    | `pip install openpyxl`                         |
 | numpy                        | (última)    | **NUEVO** — Refuerza operaciones numéricas y condicionales en Pandas.     | `pip install numpy`                            |
 
+### 1.5.2 Programas del Sistema (instalar con apt)
+
+| **Componente**        | **Versión**           | **¿Para qué sirve?**                                                                 | **Comando de Instalación / Configuración**                                         |
+|-----------------------|------------------------|----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| Python                | 3.9 o superior         | Lenguaje de programación principal.                                                    | `sudo apt install python3.9 python3-pip`                                             |
+| NetworkManager (nmcli)| Cualquiera              | Controla las conexiones de red (WAN, LAN, Wi-Fi).                                      | `sudo apt install network-manager`                                                   |
+| python3-tk            | Cualquiera              | Interfaz gráfica con botones (opcional).                                               | `sudo apt install python3-tk`                                                        |
+| sudo                  | -                      | Permisos para cambiar conexiones de red.                                               | Configurar permisos para nmcli en `/etc/sudoers.d/nmcli`.                            |
+| Chromedriver          | (coincidir con Chrome) | Controlador que permite a Selenium automatizar el navegador Chrome.                     | `sudo apt install chromium-chromedriver`                                              |
+| Google Chrome         | (última)               | Navegador web real que Chromedriver controla.                                          | `sudo apt install google-chrome-stable` (o `chromium-browser`)                        |
+| cifs-utils            | Cualquiera              | **NUEVO:** Permite usar `mount -t cifs` para montar recursos compartidos (Samba/Windows). | `sudo apt install cifs-utils`                                                         |
+
 ---
 
 # 2. Orquestador principal - Timer.py
