@@ -676,21 +676,16 @@ configwha.py es un script auxiliar especializado en la gestión y configuración
 ```mermaid
 
 graph TD
-    A[Inicio Script open_whatsapp] --> B(Definir Rutas: ChromeDriver y Perfil de Usuario)
-    B --> C(Configurar Opciones de Chrome: user-data-dir)
-    C --> D(Inicializar WebDriver de Chrome)
-    D --> E{Driver.get("https://web.whatsapp.com")}
-    E -- 1a Ejecución (Sesión Inactiva) --> F[Paso Manual: Escanear Código QR]
-    E -- Ejecuciones Posteriores (Sesión Activa) --> G[Carga la Sesión Guardada en /WhatsAppProfile]
+    A[Inicio Script open_whatsapp] --> B[Definir Rutas: ChromeDriver y Perfil]
+    B --> C[Configurar Opciones de Chrome]
+    C --> D[Inicializar WebDriver de Chrome]
+    D --> E{Driver.get web.whatsapp.com}
+    E -- 1a Ejecución --> F[Paso Manual: Escanear Código QR]
+    E -- Sesión Activa --> G[Carga Sesión Guardada]
     F --> G
-    G --> H(Mantiene Navegador Abierto)
-    H -- Usuario Presiona Enter --> I(Driver.quit(): Cierra Navegador)
+    G --> H[Mantiene Navegador Abierto]
+    H --> I[Driver.quit: Cierra Navegador]
     I --> J[Fin del Script]
-
-    style A fill:#DDEBF7,stroke:#333,stroke-width:2px
-    style D fill:#C6E0B4,stroke:#333,stroke-width:2px
-    style G fill:#E2EFDA,stroke:#333,stroke-width:2px
-
 
 
 ```
