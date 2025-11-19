@@ -600,3 +600,49 @@ El código finaliza el proceso notificando a los usuarios:
 
 ---
 
+### 5.1 Flujo Completo del Proceso
+```mermaid
+
+graph TD
+    subgraph Fuente de Datos
+        A[Archivos CSV de Glide/Sistema de Origen] --> B(Carpeta de Exportación Diaria)
+    end
+
+    subgraph Procesamiento y Cálculo
+        B --> C{Módulo: Normalización y Cálculo}
+        C --> D[DataFrame de Resultados Brutos]
+        D --> E{Hoja 'Sheet1' en Excel}
+        E --> F{Módulo: Unificación y Formato Excel}
+        F --> G[Archivo Excel Final .xlsx]
+    end
+
+    subgraph Distribución de Resultados
+        G --> H(Servicio Gmail)
+        H --> I[Destinatarios de Email]
+        
+        G --> J{Módulo: Preparación Mensaje WhatsApp}
+        J --> K(Portapapeles del Sistema)
+        K --> L(Grupo de WhatsApp)
+        L --> M[Equipo de Mantenimiento]
+        
+        N[configwha.py] --> O[Selenium WebDriver]
+    end
+
+    style A fill:#DDEBF7,stroke:#333,stroke-width:2px
+    style B fill:#FFF2CC,stroke:#333,stroke-width:2px
+    style C fill:#DAEEF3,stroke:#333,stroke-width:2px
+    style D fill:#C6E0B4,stroke:#333,stroke-width:2px
+    style E fill:#FFF2CC,stroke:#333,stroke-width:2px
+    style F fill:#DAEEF3,stroke:#333,stroke-width:2px
+    style G fill:#C6E0B4,stroke:#333,stroke-width:2px
+    style H fill:#E2EFDA,stroke:#333,stroke-width:2px
+    style I fill:#D0CECE,stroke:#333,stroke-width:2px
+    style J fill:#DAEEF3,stroke:#333,stroke-width:2px
+    style K fill:#FBE4D5,stroke:#333,stroke-width:2px
+    style L fill:#E2EFDA,stroke:#333,stroke-width:2px
+    style M fill:#D0CECE,stroke:#333,stroke-width:2px
+    style N fill:#F2F2F2,stroke:#333,stroke-width:2px
+    style O fill:#FBE4D5,stroke:#333,stroke-width:2px
+
+
+```
