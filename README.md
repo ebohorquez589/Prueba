@@ -95,6 +95,42 @@ graph TD
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py`
 - **Conexión:** WAN
 
+# 1.5 Diagrama de flujo de datos entre componentes
+
+## 1.5.1 Timer.Py , GlideExportBot.py y Ethernet_task.py
+
+
+## 1.5.2  GlideExportBot.py, Indicadores.py y configwha.py
+
+```mermaid
+graph TD
+graph TB
+    %% ========== COMPONENTES PRINCIPALES ==========
+    subgraph "CONFIGURACIÓN"
+        B[configwha.py] --> J[Perfil WhatsApp<br/>/home/rasp5/.config/google-chrome/WhatsAppProfile]
+    end
+    
+    subgraph "PROCESAMIENTO INDICADORES"
+        A[INDICADORES.py] --> F[ Procesar CSVs]
+        F --> G[ Generar Excel]
+        G --> H[ Enviar Email]
+        G --> I[ Enviar WhatsApp]
+    end
+    
+    subgraph "ENTRADA DE DATOS"
+        D[GlideExportBot.py] --> E[Archivos CSV<br/>EXPORTS/YYYY-MM-DD/]
+    end
+    
+    subgraph "SALIDA"
+        H --> K[Gmail API<br/>3 destinatarios]
+        I --> L[Mensaje WhatsApp<br/>al grupo]
+    end
+    
+    %% ========== FLUJOS PRINCIPALES ==========
+    E --> F
+    J --> I
+
+```
 ---
 
 # 2. Orquestador principal - Timer.py
