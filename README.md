@@ -432,6 +432,7 @@ Conversión CSV a Excel (convert_csv_to_excel): Utiliza la librería pandas para
 - **Restaurar Wi-Fi:** Intenta restaurar la conexión Wi-Fi con Internet activo (restore_wifi_priority) para dejar el sistema en el estado de red más común después de las tareas por cable.
 
 ### 4.2 Flujo Completo del Proceso
+
 ```mermaid
 
 graph TD
@@ -473,7 +474,6 @@ graph TD
     │
     └─► 7. ASEGURAR PAN AL FINALIZAR
         └─► nm_ensure_pan_up() → ✅ FIN
-
 
 ```
 
