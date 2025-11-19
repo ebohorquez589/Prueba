@@ -396,4 +396,38 @@ graph TD
     ZZZ --> AAAA[Asegurar PAN/Bluetooth ARRIBA al finalizar]
 
 ```
+---
+# 4. Ethernet_tasks.py - procesador lan
+Procesa los archivos CSV exportados por GlideExportBot.py, montando un recurso compartido CIFS en red local (LAN), copiando archivos, convirtiéndolos a Excel y organizándolos por fecha.
+
+## 4.1 Funcionalidades claves
+
+### 4.1.1 Gestión de Red
+
+- **Bloqueo de Instancias (acquire_lock):** Asegura que solo una instancia del script se ejecute a la vez utilizando.
+
+- **Asegurar PAN/Bluetooth:** Utiliza nmcli (NetworkManager) para asegurar que una conexión cableada (ensure_lan_for_cifs, PAN) o una conexión Bluetooth esté activa al inicio y al final, preservando dichas conexiones durante las operaciones de red.
+
+- **Asegurar LAN (Cableada):** Llama a nm_ensure_pan_up para garantizar que el acceso remoto (Bluetooth/PAN) esté activo antes de modificar la red. Esto es crucial porque el montaje CIFS (Samba) requiere generalmente una conexión de red local y estable.
+
+### 4.1.2 Montaje y Acceso al Servidor
+Montar CIFS/Samba: Utiliza el comando sudo mount -t cifs para montar un recurso compartido de red (//sglimttoprod/compartida) en el punto de montaje local (/home/rasp5/compartida).
+
+### 4.1.3 Procesamiento de Archivos
+
+Copia de Directorios (copy_dirs): Recorre los directorios de exportación generados por el bot de Glide (por ejemplo, /home/rasp5/Downloads/EXPORTS/2025-11-18/AVISOS_M1) y copia los archivos a las rutas finales en el servidor:
+
+- /home/rasp5/compartida/BIBLIOCASTIA/AVISOS M1/<fecha>
+
+- /home/rasp5/compartida/BIBLIOCASTIA/AVISOS M2/<fecha>
+
+- /home/rasp5/compartida/BIBLIOCASTIA/ACTIVIDADES_INSPECCIONES/<fecha>
+
+Conversión CSV a Excel (convert_csv_to_excel): Utiliza la librería pandas para leer cada archivo .csv copiado y crear una copia idéntica en formato .xlsx dentro de la carpeta del servidor.
+
+### 4.1.4 Limpieza y Restauración
+
+- **Desmontar CIFS/Samba:** Una vez completada la transferencia y conversión, desmonta el recurso compartido (sudo umount /home/rasp5/compartida) para liberar el punto de montaje.
+
+- **Restaurar Wi-Fi:** Intenta restaurar la conexión Wi-Fi con Internet activo (restore_wifi_priority) para dejar el sistema en el estado de red más común después de las tareas por cable.
 
