@@ -431,3 +431,96 @@ Conversión CSV a Excel (convert_csv_to_excel): Utiliza la librería pandas para
 
 - **Restaurar Wi-Fi:** Intenta restaurar la conexión Wi-Fi con Internet activo (restore_wifi_priority) para dejar el sistema en el estado de red más común después de las tareas por cable.
 
+### 4.2 Flujo Completo del Proceso
+```mermaid
+graph TD
+graph TD
+    A[INICIO finalize] --> B[PASO 1: PREPARACIÓN DE RED]
+    
+    B --> C[Asegurar PAN/Bluetooth ARRIBA]
+    C --> D[nm_ensure_pan_up]
+    
+    D --> E[Conectar a red LAN cableada]
+    E --> F[ensure_lan_for_cifs]
+    F --> G[Buscar perfiles ethernet]
+    G --> H[nm_discover_wired_connections]
+    H --> I[Priorizar LAN_CANDIDATES]
+    I --> J[Intentar cada conexión cableada]
+    J --> K[nm_ensure_connection<br/>NO requiere Internet]
+    K --> L{¿Conexión exitosa?}
+    L -->|Sí| M[✅ Retorna nombre_conexión]
+    L -->|No| N{¿Más candidatos?}
+    N -->|Sí| J
+    N -->|No| O[❌ None - ABORTAR RuntimeError]
+    
+    M --> P[PASO 2: MONTAJE DE RECURSO CIFS]
+    P --> Q[mount_shared]
+    Q --> R{¿Ya montado?<br/>os.path.ismount MOUNT_POINT}
+    R -->|Sí| S[Desmontar forzado umount -l]
+    R -->|No| T[Ejecutar comando montaje CIFS]
+    S --> T
+    
+    T --> U{¿Montaje exitoso?}
+    U -->|Sí| V[✅ Recurso compartido disponible]
+    U -->|No| W[Reintentos con backoff exponencial]
+    W --> X{¿Intentos < 5?}
+    X -->|Sí| T
+    X -->|No| Y[❌ RuntimeError]
+    
+    V --> Z[PASO 3: COPIA DE ARCHIVOS]
+    Z --> AA[copy_dirs]
+    AA --> BB[Obtener fecha de hoy: YYYY-MM-DD]
+    BB --> CC[Para cada categoría en DIRS]
+    
+    CC --> DD{¿Existe origen?<br/>EXPORTS/fecha/categoría/}
+    DD -->|No| EE[Saltar categoría]
+    DD -->|Sí| FF[Crear carpeta destino]
+    FF --> GG[Recorrer archivos en origen os.walk]
+    GG --> HH{Filtrar: ¿archivo.endswith '.zip'?}
+    HH -->|Sí| II[Omitir archivo ZIP]
+    HH -->|No| JJ[shutil.copy2 origen, destino]
+    II --> KK{¿Más archivos?}
+    JJ --> KK
+    
+    KK -->|Sí| GG
+    KK -->|No| LL{¿Más categorías?}
+    LL -->|Sí| CC
+    LL -->|No| MM[✅ Archivos CSV copiados a red]
+    
+    MM --> NN[PASO 4: CONVERSIÓN CSV → XLSX]
+    NN --> OO[convert_csv_to_excel]
+    OO --> PP[Para cada categoría en DIRS]
+    PP --> QQ[Listar archivos .csv en ruta]
+    QQ --> RR[Para cada archivo CSV]
+    RR --> SS[Leer CSV con pandas pd.read_csv]
+    SS --> TT[Extraer nombre sin extensión]
+    TT --> UU[Crear archivo Excel df.to_excel]
+    UU --> VV{¿Más archivos CSV?}
+    VV -->|Sí| RR
+    VV -->|No| WW{¿Más categorías?}
+    WW -->|Sí| PP
+    WW -->|No| XX[✅ Conversión completada]
+    
+    XX --> YY[PASO 5: DESMONTAJE SEGURO finally]
+    YY --> ZZ[unmount_shared<br/>sudo umount /home/rasp5/compartida]
+    
+    ZZ --> AAA[PASO 6: RESTAURAR CONECTIVIDAD WI-FI]
+    AAA --> BBB[restore_wifi_priority]
+    BBB --> CCC[Buscar perfiles Wi-Fi]
+    CCC --> DDD[nm_discover_wifi_connections]
+    DDD --> EEE[Intentar cada Wi-Fi con Internet]
+    EEE --> FFF[nm_ensure_connection<br/>REQUIERE Internet]
+    FFF --> GGG{¿Wi-Fi con Internet?}
+    GGG -->|Sí| HHH[Bajar conexiones excepto Wi-Fi activa]
+    GGG -->|No| III[Mantener conexión actual]
+    HHH --> JJJ[nm_deactivate_all_except<br/>Preserva PAN/Bluetooth]
+    JJJ --> KKK[✅ Wi-Fi prioritaria con Internet]
+    III --> KKK
+    
+    KKK --> LLL[PASO 7: ASEGURAR PAN/BLUETOOTH]
+    LLL --> MMM[nm_ensure_pan_up]
+    MMM --> NNN[FIN ✅<br/>Sistema listo para próximo ciclo]
+
+
+```
+
