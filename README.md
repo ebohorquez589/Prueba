@@ -498,7 +498,7 @@ El código completo implementa un Pipeline de Automatización de Indicadores de 
 - Carga y Distribución (L): Generar un informe final en Excel y distribuir un resumen por correo electrónico (Gmail) y un aviso de cumplimiento por mensajería instantánea (WhatsApp).
 
 
-## 5.1 Fase 1: Configuración y Preparación del Entorno
+## Fase 1: Configuración y Preparación del Entorno
 
 Se establecen las bases para la ejecución:
 
@@ -517,7 +517,7 @@ Se establecen las bases para la ejecución:
 
 ---
 
-## 5.2 Fase 2: Limpieza y Normalización de Datos
+## Fase 2: Limpieza y Normalización de Datos
 
 Esta fase asegura que los datos CSV sean consistentes, independientemente de cómo se hayan exportado:
 
@@ -543,7 +543,7 @@ Esta fase asegura que los datos CSV sean consistentes, independientemente de có
 
 ---
 
-##  5.3 Fase 3: Cálculo y Consolidación de Indicadores
+## Fase 3: Cálculo y Consolidación de Indicadores
 
 La función central `construir_excel_indicadores` realiza el procesamiento y la agregación de métricas:
 
@@ -566,7 +566,7 @@ La función central `construir_excel_indicadores` realiza el procesamiento y la 
 
 ---
 
-##  5.4 Fase 4: Generación y Formato de Informes Unificados (Excel)
+## Fase 4: Generación y Formato de Informes Unificados (Excel)
 
 Las funciones `unify_data_*` (general, preventivo, predictivo, correctivo) refinan el Excel:
 
