@@ -76,9 +76,9 @@ Esto asegura la **continuidad de la operación** o deja el sistema en un **estad
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py`
 - **Conexión:** WAN
 
-# 1.4 Diagrama de flujo de datos entre componentes
+## 1.4 Diagrama de flujo de datos entre componentes
 
-## 1.4.1 Timer.Py , GlideExportBot.py y Ethernet_task.py
+### 1.4.1 Timer.Py , GlideExportBot.py y Ethernet_task.py
 ```mermaid
 
 graph TB
@@ -109,7 +109,7 @@ graph TB
     
 ```
 
-## 1.4.2  GlideExportBot.py, Indicadores.py y configwha.py
+### 1.4.2  GlideExportBot.py, Indicadores.py y configwha.py
 
 ```mermaid
 graph TB
@@ -139,6 +139,21 @@ graph TB
     J --> I
 
 ```
+## 1.5 Dependencias externas y requerimientos del sistema
+
+### 1.5.1 Librerías Python (instalar con pip)
+
+| **Librería**                 | **Versión** | **¿Para qué sirve?**                                                     | **Comando de Instalación**                     |
+|------------------------------|-------------|---------------------------------------------------------------------------|------------------------------------------------|
+| APScheduler                  | 3.10.4      | Programar tareas automáticas (ciclo diario).                              | `pip install APScheduler==3.10.4`              |
+| pytz                         | 2024.1      | Manejar zona horaria de Colombia.                                         | `pip install pytz==2024.1`                     |
+| Selenium                     | (última)    | Automatización web (exportación en Glide y envío de WhatsApp).            | `pip install selenium`                         |
+| google-api-python-client     | (última)    | Enviar correos y obtener enlaces de inicio de sesión con Gmail API.       | `pip install google-api-python-client`         |
+| google-auth-oauthlib         | (última)    | Manejar el flujo de autenticación Oauth2 de Google.                       | `pip install google-auth-oauthlib`             |
+| pyperclip                    | (última)    | Copiar texto al portapapeles (para WhatsApp Web).                         | `pip install pyperclip`                        |
+| pandas                       | (última)    | Lectura, manipulación y cálculo de indicadores (conversión CSV a XLSX).   | `pip install pandas`                           |
+| openpyxl                     | (última)    | Permite a Pandas y scripts manipular archivos `.xlsx`.                    | `pip install openpyxl`                         |
+| numpy                        | (última)    | **NUEVO** — Refuerza operaciones numéricas y condicionales en Pandas.     | `pip install numpy`                            |
 
 ---
 
