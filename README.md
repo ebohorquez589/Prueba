@@ -465,29 +465,24 @@ graph TD
     S --> T[copy_dirs]
     T --> U[Origen: EXPORTS/YYYY-MM-DD/categoría/]
     U --> V[Destino: compartida/BIBLIOCASTIA/categoría/YYYY-MM-DD/]
-    V --> W[Filtrar: Solo archivos NO-ZIP .csv]
-    W --> X[shutil.copy2 Preserva metadatos]
-    X --> Y[✅ Archivos CSV copiados]
+    V --> W[✅ Archivos CSV copiados]
     
-    Y --> Z[4. CONVERSIÓN A EXCEL]
-    Z --> AA[convert_csv_to_excel]
-    AA --> BB[pd.read_csv]
-    BB --> CC[df.to_excel index=False]
-    CC --> DD[Genera .xlsx paralelo a cada .csv]
-    DD --> EE[✅ Conversión completada]
+    W --> X[4. CONVERSIÓN A EXCEL]
+    X --> Y[convert_csv_to_excel]
+    Y --> Z[✅ Conversión completada]
     
-    EE --> FF[5. DESMONTAJE finally]
-    FF --> GG[unmount_shared<br/>Siempre ejecutado]
+    Z --> AA[5. DESMONTAJE finally]
+    AA --> BB[unmount_shared<br/>Siempre ejecutado]
     
-    GG --> HH[6. RESTAURAR WI-FI]
-    HH --> II[restore_wifi_priority]
-    II --> JJ[Busca Wi-Fi con Internet funcional]
-    JJ --> KK{nm_deactivate_all_except wifi<br/>Preserva PAN}
-    KK --> LL[Prepara sistema para próximo ciclo WAN]
+    BB --> CC[6. RESTAURAR WI-FI]
+    CC --> DD[restore_wifi_priority]
+    DD --> EE[Busca Wi-Fi con Internet funcional]
+    EE --> FF{nm_deactivate_all_except wifi<br/>Preserva PAN}
+    FF --> GG[Prepara sistema para próximo ciclo WAN]
     
-    LL --> MM[7. ASEGURAR PAN AL FINALIZAR]
-    MM --> NN[nm_ensure_pan_up]
-    NN --> OO[✅ FIN]
+    GG --> HH[7. ASEGURAR PAN AL FINALIZAR]
+    HH --> II[nm_ensure_pan_up]
+    II --> JJ[✅ FIN]
 
 ```
 
