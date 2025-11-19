@@ -604,7 +604,6 @@ El código finaliza el proceso notificando a los usuarios:
 ```mermaid
 
 graph TD
-    graph TD
     A[INICIO run_pipeline] --> B[1. PREPARACIÓN DE DATOS]
     
     B --> C[Detectar carpeta de fecha<br/>hoy o más reciente]
