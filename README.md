@@ -436,16 +436,16 @@ Conversión CSV a Excel (convert_csv_to_excel): Utiliza la librería pandas para
 ```mermaid
 
 graph TD
-    A[INICIO finalize] --> B[1. PREPARACIÓN DE RED]
+    A[Inicioi finalize()] --> B[1. PREPARACIÓN DE RED]
     
     B --> C[nm_ensure_pan_up<br/>Garantizar PAN/Bluetooth activa]
     C --> D[ensure_lan_for_cifs<br/>Conectar LAN cableada]
     D --> E[Prueba LAN_CANDIDATES con prioridad]
     E --> F{¿Conexión exitosa?}
-    F -->|Sí| G[✅ LAN conectada]
+    F -->|Sí| G[ LAN conectada]
     F -->|No| H{¿Más candidatos?}
     H -->|Sí| E
-    H -->|No| I[❌ ABORTAR]
+    H -->|No| I[ ABORTAR]
     
     G --> J[2. MONTAJE CIFS]
     J --> K[mount_shared]
@@ -455,7 +455,7 @@ graph TD
     M --> N
     
     N --> O{¿Montaje exitoso?}
-    O -->|Sí| P[✅ Recurso montado]
+    O -->|Sí| P[ Recurso montado]
     O -->|No| Q[Reintento con backoff 2^n segundos]
     Q --> R{¿Intentos < 5?}
     R -->|Sí| N
@@ -465,11 +465,11 @@ graph TD
     S --> T[copy_dirs]
     T --> U[Origen: EXPORTS/YYYY-MM-DD/categoría/]
     U --> V[Destino: compartida/BIBLIOCASTIA/categoría/YYYY-MM-DD/]
-    V --> W[✅ Archivos CSV copiados]
+    V --> W[ Archivos CSV copiados]
     
     W --> X[4. CONVERSIÓN A EXCEL]
     X --> Y[convert_csv_to_excel]
-    Y --> Z[✅ Conversión completada]
+    Y --> Z[ Conversión completada]
     
     Z --> AA[5. DESMONTAJE finally]
     AA --> BB[unmount_shared<br/>Siempre ejecutado]
@@ -482,7 +482,7 @@ graph TD
     
     GG --> HH[7. ASEGURAR PAN AL FINALIZAR]
     HH --> II[nm_ensure_pan_up]
-    II --> JJ[✅ FIN]
+    II --> JJ[ FIN]
 
 ```
 
