@@ -604,45 +604,59 @@ El código finaliza el proceso notificando a los usuarios:
 ```mermaid
 
 graph TD
-    subgraph Fuente de Datos
-        A[Archivos CSV de Glide/Sistema de Origen] --> B(Carpeta de Exportación Diaria)
-    end
-
-    subgraph Procesamiento y Cálculo
-        B --> C{Módulo: Normalización y Cálculo}
-        C --> D[DataFrame de Resultados Brutos]
-        D --> E{Hoja 'Sheet1' en Excel}
-        E --> F{Módulo: Unificación y Formato Excel}
-        F --> G[Archivo Excel Final .xlsx]
-    end
-
-    subgraph Distribución de Resultados
-        G --> H(Servicio Gmail)
-        H --> I[Destinatarios de Email]
-        
-        G --> J{Módulo: Preparación Mensaje WhatsApp}
-        J --> K(Portapapeles del Sistema)
-        K --> L(Grupo de WhatsApp)
-        L --> M[Equipo de Mantenimiento]
-        
-        N[configwha.py] --> O[Selenium WebDriver]
-    end
-
-    style A fill:#DDEBF7,stroke:#333,stroke-width:2px
-    style B fill:#FFF2CC,stroke:#333,stroke-width:2px
-    style C fill:#DAEEF3,stroke:#333,stroke-width:2px
-    style D fill:#C6E0B4,stroke:#333,stroke-width:2px
-    style E fill:#FFF2CC,stroke:#333,stroke-width:2px
-    style F fill:#DAEEF3,stroke:#333,stroke-width:2px
-    style G fill:#C6E0B4,stroke:#333,stroke-width:2px
-    style H fill:#E2EFDA,stroke:#333,stroke-width:2px
-    style I fill:#D0CECE,stroke:#333,stroke-width:2px
-    style J fill:#DAEEF3,stroke:#333,stroke-width:2px
-    style K fill:#FBE4D5,stroke:#333,stroke-width:2px
-    style L fill:#E2EFDA,stroke:#333,stroke-width:2px
-    style M fill:#D0CECE,stroke:#333,stroke-width:2px
-    style N fill:#F2F2F2,stroke:#333,stroke-width:2px
-    style O fill:#FBE4D5,stroke:#333,stroke-width:2px
-
+    graph TD
+    A[INICIO run_pipeline] --> B[1. PREPARACIÓN DE DATOS]
+    
+    B --> C[Detectar carpeta de fecha<br/>hoy o más reciente]
+    C --> D[Ruta: EXPORTS/YYYY-MM-DD/ACTIVIDADES_INSPECCIONES/]
+    D --> E[Limpieza in-place de CSVs]
+    E --> F[Convertir puntos → comas en 'Duración']
+    F --> G[Armonizar nombres de columnas]
+    G --> H[Guardar CSV limpio]
+    
+    H --> I[2. COPIA ESPEJO Opcional]
+    I --> J[Copia CSVs procesados a OUTPUT_FOLDER]
+    
+    J --> K[3. CONSTRUCCIÓN DE EXCEL BASE]
+    K --> L[Cargar todos los CSV de la carpeta]
+    L --> M[Extraer código de planta 4 dígitos]
+    M --> N[Calcular métricas por archivo]
+    N --> O[Crear DataFrame con métricas]
+    O --> P[Ordenar por código de planta predefinido]
+    P --> Q[Calcular columna Porcentaje]
+    Q --> R[Guardar Excel inicial<br/>Sheet1 datos crudos]
+    
+    R --> S[4. GENERACIÓN DE HOJAS UNIFICADAS]
+    S --> T[unify_data_general<br/>hoja 'indicadores_cam']
+    S --> U[unify_data_preventivo<br/>hoja 'Preventivo']
+    S --> V[unify_data_predictivo<br/>hoja 'Predictivo']
+    S --> W[unify_data_correctivo<br/>hoja 'Correctivo']
+    
+    T --> X[Aplicar colores graduales rojo→verde]
+    U --> X
+    V --> X
+    W --> X
+    
+    X --> Y[5. ENVÍO DE RESULTADOS]
+    Y --> Z[A CORREO ELECTRÓNICO Gmail API]
+    Y --> AA[B WHATSAPP Selenium]
+    
+    Z --> BB[Autenticar Gmail OAuth 2.0]
+    BB --> CC[Crear mensaje con adjunto Excel]
+    CC --> DD[Enviar a cada destinatario]
+    DD --> EE[Reintentos: 3 × destinatario]
+    
+    AA --> FF[build_whatsapp_message_from_excel]
+    FF --> GG[Lee 'indicadores_cam', formatea tabla]
+    GG --> HH[Emojis según porcentaje]
+    HH --> II[Copiar mensaje al portapapeles]
+    II --> JJ[Abrir WhatsApp Web perfil persistente]
+    JJ --> KK[Localizar caja de texto]
+    KK --> LL[Escribir preludio]
+    LL --> MM[Pegar mensaje]
+    MM --> NN[Enviar Enter]
+    
+    EE --> OO[FIN ✅ Pipeline completado]
+    NN --> OO
 
 ```
