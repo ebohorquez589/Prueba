@@ -106,7 +106,6 @@ graph TD
 ## 1.5.2  GlideExportBot.py, Indicadores.py y configwha.py
 
 ```mermaid
-graph TD
 graph TB
     %% ========== COMPONENTES PRINCIPALES ==========
     subgraph "CONFIGURACIÓN"
