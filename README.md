@@ -713,32 +713,17 @@ configwha.py es un script auxiliar especializado en la gestión y configuración
 
 ```mermaid
 
-graph TB
-    %% ========== COMPONENTES PRINCIPALES ==========
-    subgraph "CONFIGURACIÓN"
-        B[configwha.py] --> J[Perfil WhatsApp<br/>/home/rasp5/.config/google-chrome/WhatsAppProfile]
-    end
-    
-    subgraph "PROCESAMIENTO INDICADORES"
-        A[INDICADORES.py] --> F[📁 Procesar CSVs]
-        F --> G[📊 Generar Excel]
-        G --> H[📧 Enviar Email]
-        G --> I[💬 Enviar WhatsApp]
-    end
-    
-    subgraph "ENTRADA DE DATOS"
-        D[GlideExportBot.py] --> E[Archivos CSV<br/>EXPORTS/YYYY-MM-DD/]
-    end
-    
-    subgraph "SALIDA"
-        H --> K[Gmail API<br/>3 destinatarios]
-        I --> L[Mensaje WhatsApp<br/>al grupo]
-    end
-    
-    %% ========== FLUJOS PRINCIPALES ==========
-    E --> F
-    J --> I
-
+graph TD
+    A[Inicio Script open_whatsapp] --> B[Definir Rutas: ChromeDriver y Perfil]
+    B --> C[Configurar Opciones de Chrome]
+    C --> D[Inicializar WebDriver de Chrome]
+    D --> E{Driver.get web.whatsapp.com}
+    E -- 1a Ejecución --> F[Paso Manual: Escanear Código QR]
+    E -- Sesión Activa --> G[Carga Sesión Guardada]
+    F --> G
+    G --> H[Mantiene Navegador Abierto]
+    H --> I[Driver.quit: Cierra Navegador]
+    I --> J[Fin del Script]
 
 ```
 
