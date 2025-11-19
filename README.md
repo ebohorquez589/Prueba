@@ -655,7 +655,7 @@ graph TD
     LL --> MM[Pegar mensaje]
     MM --> NN[Enviar Enter]
     
-    EE --> OO[FIN ✅ Pipeline completado]
+    EE --> OO[FIN Pipeline completado]
     NN --> OO
 
 ```
