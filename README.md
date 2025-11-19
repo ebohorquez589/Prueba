@@ -40,71 +40,7 @@ Esto asegura la **continuidad de la operación** o deja el sistema en un **estad
 
 ---
 
-# 1.3 Diagrama de flujo de datos entre componentes
-
-## 1.3.1 Timer.Py , GlideExportBot.py y Ethernet_task.py
-```mermaid
-
-graph TB
-    %% ========== ORQUESTADOR PRINCIPAL ==========
-    A[TIMER.PY<br/>Orquestador Principal<br/>APScheduler: 05:00, 13:00, 21:00] --> B[FASE WAN<br/>Internet]
-    A --> C[FASE LAN<br/>Red Local]
-    
-    %% ========== FASE WAN ==========
-    B --> D[ Conexión: Wired Connection 2<br/>D-Link Mobile Connect]
-    D --> E[GlideExportBot.py<br/>Bot de Exportación]
-    E --> F[ Descarga datos desde Glide Apps]
-    F --> G[Genera Archivos CSV<br/>EXPORTS/YYYY-MM-DD/]
-    
-    %% ========== FASE LAN ==========
-    C --> H[🖧 Conexión: Wired Connection 1<br/>eth0 - Red Local]
-    H --> I[ethernet_tasks.py<br/>Procesador LAN]
-    
-    %% ========== FLUJO DE DATOS WAN → LAN ==========
-    G --> J[ Archivos CSV Exportados]
-    J --> I
-    I --> K[ Monta recurso CIFS<br/>//sglimttoprod/compartida]
-    I --> L[ Copia archivos a red compartida]
-    I --> M[ Conversión CSV → Excel]
-    
-    %% ========== RESULTADO FINAL ==========
-    L --> N[ Datos disponibles en<br/>BIBLIOCASTIA/ Recursos Compartidos]
-    M --> N
-    
-```
-
-## 1.3.2  GlideExportBot.py, Indicadores.py y configwha.py
-
-```mermaid
-graph TB
-    %% ========== componentes principales ==========
-    subgraph "Configuración"
-        B[configwha.py] --> J[Perfil WhatsApp<br/>/home/rasp5/.config/google-chrome/WhatsAppProfile]
-    end
-    
-    subgraph "Procesos"
-        A[INDICADORES.py] --> F[ Procesar CSVs]
-        F --> G[ Generar Excel]
-        G --> H[ Enviar Email]
-        G --> I[ Enviar WhatsApp]
-    end
-    
-    subgraph "Entrada de datos"
-        D[GlideExportBot.py] --> E[Archivos CSV<br/>EXPORTS/YYYY-MM-DD/]
-    end
-    
-    subgraph "SALIDA"
-        H --> K[Gmail API<br/>3 destinatarios]
-        I --> L[Mensaje WhatsApp<br/>al grupo]
-    end
-    
-    %% ========== Flujos principales ==========
-    E --> F
-    J --> I
-
-```
-
-## 1.4 Componentes Principales
+## 1.3 Componentes Principales
 ### Timer.py
 
 - **Tipo:** Orquestador
@@ -140,6 +76,69 @@ graph TB
 - **Ubicación:** `/home/rasp5/Desktop/BIBLIOCASTIA/NOOTEBOKS/configwha.py`
 - **Conexión:** WAN
 
+# 1.4 Diagrama de flujo de datos entre componentes
+
+## 1.4.1 Timer.Py , GlideExportBot.py y Ethernet_task.py
+```mermaid
+
+graph TB
+    %% ========== ORQUESTADOR PRINCIPAL ==========
+    A[TIMER.PY<br/>Orquestador Principal<br/>APScheduler: 05:00, 13:00, 21:00] --> B[FASE WAN<br/>Internet]
+    A --> C[FASE LAN<br/>Red Local]
+    
+    %% ========== FASE WAN ==========
+    B --> D[ Conexión: Wired Connection 2<br/>D-Link Mobile Connect]
+    D --> E[GlideExportBot.py<br/>Bot de Exportación]
+    E --> F[ Descarga datos desde Glide Apps]
+    F --> G[Genera Archivos CSV<br/>EXPORTS/YYYY-MM-DD/]
+    
+    %% ========== FASE LAN ==========
+    C --> H[🖧 Conexión: Wired Connection 1<br/>eth0 - Red Local]
+    H --> I[ethernet_tasks.py<br/>Procesador LAN]
+    
+    %% ========== FLUJO DE DATOS WAN → LAN ==========
+    G --> J[ Archivos CSV Exportados]
+    J --> I
+    I --> K[ Monta recurso CIFS<br/>//sglimttoprod/compartida]
+    I --> L[ Copia archivos a red compartida]
+    I --> M[ Conversión CSV → Excel]
+    
+    %% ========== RESULTADO FINAL ==========
+    L --> N[ Datos disponibles en<br/>BIBLIOCASTIA/ Recursos Compartidos]
+    M --> N
+    
+```
+
+## 1.4.2  GlideExportBot.py, Indicadores.py y configwha.py
+
+```mermaid
+graph TB
+    %% ========== componentes principales ==========
+    subgraph "Configuración"
+        B[configwha.py] --> J[Perfil WhatsApp<br/>/home/rasp5/.config/google-chrome/WhatsAppProfile]
+    end
+    
+    subgraph "Procesos"
+        A[INDICADORES.py] --> F[ Procesar CSVs]
+        F --> G[ Generar Excel]
+        G --> H[ Enviar Email]
+        G --> I[ Enviar WhatsApp]
+    end
+    
+    subgraph "Entrada de datos"
+        D[GlideExportBot.py] --> E[Archivos CSV<br/>EXPORTS/YYYY-MM-DD/]
+    end
+    
+    subgraph "SALIDA"
+        H --> K[Gmail API<br/>3 destinatarios]
+        I --> L[Mensaje WhatsApp<br/>al grupo]
+    end
+    
+    %% ========== Flujos principales ==========
+    E --> F
+    J --> I
+
+```
 
 ---
 
