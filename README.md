@@ -433,7 +433,7 @@ Conversión CSV a Excel (convert_csv_to_excel): Utiliza la librería pandas para
 
 ### 4.2 Flujo Completo del Proceso
 ```mermaid
-graph TD
+
 graph TD
     A[INICIO finalize] --> B[PASO 1: PREPARACIÓN DE RED]
     
