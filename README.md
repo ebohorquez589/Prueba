@@ -101,6 +101,8 @@ graph TD
 # 1.5 Diagrama de flujo de datos entre componentes
 
 ## 1.5.1 Timer.Py , GlideExportBot.py y Ethernet_task.py
+```mermaid
+
 graph TB
     %% ========== ORQUESTADOR PRINCIPAL ==========
     A[TIMER.PY<br/>Orquestador Principal<br/>APScheduler: 05:00, 13:00, 21:00] --> B[FASE WAN<br/>Internet]
@@ -120,6 +122,7 @@ graph TB
     G --> I
     I --> J[Conversión CSV → Excel]
     J --> K[ Procesamiento Completado]
+```
 
 ## 1.5.2  GlideExportBot.py, Indicadores.py y configwha.py
 
