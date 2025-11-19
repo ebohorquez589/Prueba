@@ -436,44 +436,58 @@ Conversión CSV a Excel (convert_csv_to_excel): Utiliza la librería pandas para
 ```mermaid
 
 graph TD
-    INICIO finalize()
-    │
-    ├─► 1. PREPARACIÓN DE RED
-    │   ├─► nm_ensure_pan_up() → Garantizar PAN/Bluetooth activa
-    │   ├─► ensure_lan_for_cifs() → Conectar LAN cableada
-    │   │   └─► Prueba LAN_CANDIDATES con prioridad
-    │   │       ['Wired connection 1', 'Wired connection 2', ...]
-    │   └─► require_internet=False (solo conectividad local)
-    │
-    ├─► 2. MONTAJE CIFS
-    │   └─► mount_shared()
-    │       ├─► Si ya montado → umount -l (forzado)
-    │       ├─► sudo mount -t cifs //sglimttoprod/compartida
-    │       └─► 5 reintentos con backoff exponencial (2^n segundos)
-    │
-    ├─► 3. COPIA DE ARCHIVOS
-    │   └─► copy_dirs()
-    │       ├─► Origen: EXPORTS/YYYY-MM-DD/{categoría}/
-    │       ├─► Destino: compartida/BIBLIOCASTIA/{categoría}/YYYY-MM-DD/
-    │       ├─► Filtro: Solo archivos NO-ZIP (.csv únicamente)
-    │       └─► shutil.copy2() → Preserva metadatos
-    │
-    ├─► 4. CONVERSIÓN A EXCEL
-    │   └─► convert_csv_to_excel()
-    │       └─► pd.read_csv() → df.to_excel(index=False)
-    │           └─► Genera .xlsx paralelo a cada .csv
-    │
-    ├─► 5. DESMONTAJE (bloque finally)
-    │   └─► unmount_shared() → Siempre ejecutado
-    │
-    ├─► 6. RESTAURAR WI-FI
-    │   └─► restore_wifi_priority()
-    │       ├─► Busca Wi-Fi con Internet funcional
-    │       ├─► nm_deactivate_all_except(wifi) → Preserva PAN
-    │       └─► Prepara sistema para próximo ciclo WAN
-    │
-    └─► 7. ASEGURAR PAN AL FINALIZAR
-        └─► nm_ensure_pan_up() → ✅ FIN
+    A[INICIO finalize] --> B[1. PREPARACIÓN DE RED]
+    
+    B --> C[nm_ensure_pan_up<br/>Garantizar PAN/Bluetooth activa]
+    C --> D[ensure_lan_for_cifs<br/>Conectar LAN cableada]
+    D --> E[Prueba LAN_CANDIDATES con prioridad]
+    E --> F{¿Conexión exitosa?}
+    F -->|Sí| G[✅ LAN conectada]
+    F -->|No| H{¿Más candidatos?}
+    H -->|Sí| E
+    H -->|No| I[❌ ABORTAR]
+    
+    G --> J[2. MONTAJE CIFS]
+    J --> K[mount_shared]
+    K --> L{¿Ya montado?}
+    L -->|Sí| M[umount -l forzado]
+    L -->|No| N[sudo mount -t cifs]
+    M --> N
+    
+    N --> O{¿Montaje exitoso?}
+    O -->|Sí| P[✅ Recurso montado]
+    O -->|No| Q[Reintento con backoff 2^n segundos]
+    Q --> R{¿Intentos < 5?}
+    R -->|Sí| N
+    R -->|No| I
+    
+    P --> S[3. COPIA DE ARCHIVOS]
+    S --> T[copy_dirs]
+    T --> U[Origen: EXPORTS/YYYY-MM-DD/categoría/]
+    U --> V[Destino: compartida/BIBLIOCASTIA/categoría/YYYY-MM-DD/]
+    V --> W[Filtrar: Solo archivos NO-ZIP .csv]
+    W --> X[shutil.copy2 Preserva metadatos]
+    X --> Y[✅ Archivos CSV copiados]
+    
+    Y --> Z[4. CONVERSIÓN A EXCEL]
+    Z --> AA[convert_csv_to_excel]
+    AA --> BB[pd.read_csv]
+    BB --> CC[df.to_excel index=False]
+    CC --> DD[Genera .xlsx paralelo a cada .csv]
+    DD --> EE[✅ Conversión completada]
+    
+    EE --> FF[5. DESMONTAJE finally]
+    FF --> GG[unmount_shared<br/>Siempre ejecutado]
+    
+    GG --> HH[6. RESTAURAR WI-FI]
+    HH --> II[restore_wifi_priority]
+    II --> JJ[Busca Wi-Fi con Internet funcional]
+    JJ --> KK{nm_deactivate_all_except wifi<br/>Preserva PAN}
+    KK --> LL[Prepara sistema para próximo ciclo WAN]
+    
+    LL --> MM[7. ASEGURAR PAN AL FINALIZAR]
+    MM --> NN[nm_ensure_pan_up]
+    NN --> OO[✅ FIN]
 
 ```
 
