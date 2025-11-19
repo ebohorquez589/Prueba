@@ -107,19 +107,19 @@ graph TD
 
 ```mermaid
 graph TB
-    %% ========== COMPONENTES PRINCIPALES ==========
-    subgraph "CONFIGURACIÓN"
+    %% ========== componentes principales ==========
+    subgraph "Configuración"
         B[configwha.py] --> J[Perfil WhatsApp<br/>/home/rasp5/.config/google-chrome/WhatsAppProfile]
     end
     
-    subgraph "PROCESAMIENTO INDICADORES"
+    subgraph "Procesamiento indicadores"
         A[INDICADORES.py] --> F[ Procesar CSVs]
         F --> G[ Generar Excel]
         G --> H[ Enviar Email]
         G --> I[ Enviar WhatsApp]
     end
     
-    subgraph "ENTRADA DE DATOS"
+    subgraph "Entrada de datos"
         D[GlideExportBot.py] --> E[Archivos CSV<br/>EXPORTS/YYYY-MM-DD/]
     end
     
@@ -128,7 +128,7 @@ graph TB
         I --> L[Mensaje WhatsApp<br/>al grupo]
     end
     
-    %% ========== FLUJOS PRINCIPALES ==========
+    %% ========== Flujos principales ==========
     E --> F
     J --> I
 
