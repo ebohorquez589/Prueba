@@ -558,7 +558,7 @@ graph TD
 
 ```
 
-# 5. Indicadores.py - análisi y reportes
+# 5. Indicadores.py - análisis y reportes
 Procesa los archivos CSV, calcula indicadores de mantenimiento (KPIs), genera reportes Excel con múltiples hojas y envía resultados por Gmail y WhatsApp.
 
 El código completo implementa un Pipeline de Automatización de Indicadores de Mantenimiento (CAM). Su objetivo principal es:
