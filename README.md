@@ -624,7 +624,6 @@ La función central `construir_excel_indicadores` realiza el procesamiento y la 
   - `sumar_duracion`
   - `duracion_tipo_preventivo_o_total`
   - `calcular_duracion_programada`
-  - …entre muchas otras.
 
 ### Construcción del DataFrame Base
 - Se consolidan todos los resultados en un DataFrame (`df_resultados`).
